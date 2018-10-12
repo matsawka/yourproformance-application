@@ -1,0 +1,30 @@
+.container {
+    max-width:75rem;
+    margin: 0 auto;
+    padding: 0 $m-size;
+    background-color:white;
+    border-radius: 5px;
+    padding: $l-size;
+}
+.row {
+    margin-bottom: $m-size;
+}
+.bottom-row {
+    margin-bottom: 0;
+    margin-top: $l-size;
+}
+.add-option__input {
+    border: .1rem solid ligthen($off-white, 10%);
+    color: $dark-blue;
+    padding: $s-size;
+    width: 100%;
+}
+select {
+    max-width:100%;
+}
+.required {
+    color: $required;
+}
+button:focus {
+    outline: 0;
+}

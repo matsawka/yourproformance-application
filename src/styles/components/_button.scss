@@ -1,0 +1,37 @@
+.big-button:disabled {
+    opacity: .5;
+}
+//Button
+.button {
+    background: $background-blue;
+    border:none;
+    border-bottom: .3rem solid darken($background-blue, 10%);
+    color:white;
+    font-weight: 500;
+    padding: $s-size;
+    border-radius: 5px;
+}
+//modified base version
+.button--link {
+    background: none;
+    border: none;
+    color: $off-white;
+    padding: 0;
+}
+.button__crypto {
+    width:100%;
+    border-radius: 20px;
+    display:flex;
+    justify-content: center;
+}
+.button__cyrpto__unselected {
+    background-color:white;
+    color: $background-blue;
+    border: .1rem solid darken($background-blue, 10%);
+}
+
+@media (min-width: $desktop-breakpoint) {
+    .big-button {
+        margin-bottom: $xl-size;
+    }
+}
