@@ -51,7 +51,7 @@ export default class Step1 extends React.Component {
         document.getElementById("lastName_validation").innerHTML = '<span class="required">*</span>Last Name';
         
         validator.isEmail(email) ? 
-        document.getElementById("email_validation").innerHTML = '<span class="required">*</span>*Email:' :  
+        document.getElementById("email_validation").innerHTML = '<span class="required">*</span>Email:' :  
         document.getElementById("email_validation").innerHTML = '<span class="required">*</span>Email: <span class="required">required</span>';
 
        validator.isEmpty(phoneNumber) ? 
@@ -69,14 +69,17 @@ export default class Step1 extends React.Component {
             document.getElementById("State_validation").innerHTML = '<span class="required">*</span>State: <span class="required">required</span>';
         }
         if(document.getElementById("over18Checkbox").checked == true) {
-        } else { console.log('not checked');}
+            var over18Checkboxchecked= true;
+        } else { console.log('not checked');} 
  
         if(
+            over18Checkboxchecked &&
              !validator.isEmpty(firstName) && 
             !validator.isEmpty(lastName) && 
             !validator.isEmpty(phoneNumber) && 
             validator.isEmail(email) && 
             (this.state.country != undefined))
+            
             {
                 localStorage.setItem('firstname', firstName);
                 localStorage.setItem('lastname', lastName);

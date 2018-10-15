@@ -61,7 +61,7 @@ export default class Step4 extends React.Component {
                             <b>COLLATERAL AMOUNT</b><br/>
                             <i><span id="currencyType"></span>: <span id="collateralAmount"></span></i>
                       </div>
-                      Submitted: {moment().format('MMMM Do YYYY, h:mm a')}<br/>
+                      Submitted: <i>{moment().format('MMMM Do YYYY, h:mm a')}</i><br/>
                       {/*Loan ID: ID*/}
                     
                      </div>
