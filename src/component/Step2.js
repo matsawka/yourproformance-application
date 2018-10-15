@@ -2,6 +2,7 @@ import React from 'react';
 import validator from 'validator';
 import { FaEthereum } from 'react-icons/fa';
 import { FaBitcoin } from 'react-icons/fa';
+import numeral from 'numeral';
 
 export default class Step2 extends React.Component {
     constructor(props) {
@@ -81,7 +82,7 @@ export default class Step2 extends React.Component {
         //var att = document.createAttribute("currency");       // Create a "class" attribute
         //att.value = collateral_needed;
         amount_granted.setAttribute('currency', collateral_needed); 
-        amount_granted.value = collateral_needed;
+        amount_granted.value = numeral(collateral_needed).format('0,0.00');
       } 
     }  
     handleStep2(e) {

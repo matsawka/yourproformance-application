@@ -1,4 +1,6 @@
 import React from 'react'
+import moment from 'moment';
+import numeral from 'numeral';
 
 
 
@@ -21,11 +23,11 @@ export default class Step4 extends React.Component {
             };
             if (localStorage.getItem("loan-amount") !== null) {
                 const ls_loanAmount = localStorage.getItem("loan-amount");
-                document.getElementById("loanAmount").innerHTML = ls_loanAmount;
+                document.getElementById("loanAmount").innerHTML = numeral(ls_loanAmount).format('$0,0.00');
             };
             if (localStorage.getItem("collateral") !== null) {
                 const ls_collateralAmount = localStorage.getItem("collateral");
-                document.getElementById("collateralAmount").innerHTML = ls_collateralAmount;
+                document.getElementById("collateralAmount").innerHTML = numeral(ls_collateralAmount).format('0,0.00');
             };
             if (localStorage.getItem("currency-type") !== null) {
                 const ls_currencyType = localStorage.getItem("currency-type");
@@ -53,14 +55,14 @@ export default class Step4 extends React.Component {
                      <div className="col-12 col-sm-6">
                       <div className="box">
                             <b>Loan Amount</b><br/>
-                            <i>$<span id="loanAmount"></span></i>
+                            <i><span id="loanAmount"></span></i>
                       </div>
                       <div className="box">
                             <b>COLLATERAL AMOUNT</b><br/>
                             <i><span id="currencyType"></span>: <span id="collateralAmount"></span></i>
                       </div>
-                      {/*Submitted SUBMIT TIME  STAMP<br/>
-                      Loan ID: ID*/}
+                      Submitted: {moment().format('MMMM Do YYYY, h:mm a')}<br/>
+                      {/*Loan ID: ID*/}
                     
                      </div>
                 </div>
