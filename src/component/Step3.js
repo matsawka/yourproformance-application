@@ -93,13 +93,13 @@ export default class Step3 extends React.Component {
       }
 
       if(validator.isEmpty(socialSecurity)) {
-        document.getElementById("socialSecurity_validation").innerHTML = '<span class="required">*</span>Social Secuirty Number: <span class="required">required</span>';
+        document.getElementById("socialSecurity_validation").innerHTML = '<span class="required">*</span>Social Security Number: <span class="required">required</span>';
       }
       else if (socialSecurity.length != 9){ //check for 9 digit S.S. # 
-        document.getElementById("socialSecurity_validation").innerHTML = '<span class="required">*</span>Social Secuirty Number: <span class="required">must be 9 digits</span>';
+        document.getElementById("socialSecurity_validation").innerHTML = '<span class="required">*</span>Social Security Number: <span class="required">must be 9 digits</span>';
       }
       else {
-        document.getElementById("socialSecurity_validation").innerHTML = '<span class="required">*</span>Social Secuirty Number:'; 
+        document.getElementById("socialSecurity_validation").innerHTML = '<span class="required">*</span>Social Security Number:'; 
         var SocialSecuirtyResult= true;
       }
       if(streetAddressResult && zipCodeResult && SocialSecuirtyResult && birthDateResults) {
@@ -142,7 +142,7 @@ export default class Step3 extends React.Component {
             />
                 </div>
                 <div className="col-12 col-sm-6">
-                   <b><label id="socialSecurity_validation"><span className="required">*</span>Social Secuirty Number:</label></b><br/>
+                   <b><label id="socialSecurity_validation"><span className="required">*</span>Social Security Number:</label></b><br/>
                    <input className="add-option__input" type="text" name="socialSecurity" id="socialSecurity"/>
                  </div>
               </div>

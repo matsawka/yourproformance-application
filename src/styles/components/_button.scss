@@ -9,7 +9,7 @@
     color:white;
     font-weight: 500;
     padding: $s-size;
-    border-radius: 5px;
+    @include border-radius(5px);
 }
 //modified base version
 .button--link {
@@ -20,7 +20,7 @@
 }
 .button__crypto {
     width:100%;
-    border-radius: 20px;
+    @include border-radius(20px);
     display:flex;
     justify-content: center;
 }

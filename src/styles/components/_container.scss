@@ -3,7 +3,7 @@
     margin: 0 auto;
     padding: 0 $m-size;
     background-color:white;
-    border-radius: 5px;
+    @include border-radius(5px);
     padding: $l-size;
 }
 .row {

@@ -16,6 +16,13 @@ $l-size: 3.2rem;
 $xl-size: 4.8rem;
 $desktop-breakpoint: 45rem;
 
+//Border Radius Mixin:
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+
  /*@media screen and (min-width: 800px) {
     .column {
       flex: 1;

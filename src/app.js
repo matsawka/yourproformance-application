@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import BasicWizard from './component/BasicWizard';
 import 'normalize.css/normalize.css';
-import './styles/styles.scss'
+import './styles/styles.scss';
+import './firebase/firebase';
 
 ReactDOM.render(<BasicWizard/>, document.getElementById('app'));
 
