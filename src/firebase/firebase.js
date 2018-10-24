@@ -5,7 +5,7 @@ import * as firebase from 'firebase';
     firebase.initializeApp({
             apiKey: process.env.APIKEY,
             authDomain: process.env.AUTHDOMAIN,
-            projectId: process.env.PROJECTID
+            projectId: 'yourproformance'
           });
 
           // Initialize Cloud Firestore through Firebase
