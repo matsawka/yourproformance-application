@@ -1,12 +1,20 @@
 import * as firebase from 'firebase';
 
 // Initialize Firebase
-/*const config = {
-    
-  };
-  firebase.initializeApp(config);
 
+    firebase.initializeApp({
+            apiKey: process.env.APIKEY,
+            authDomain: process.env.AUTHDOMAIN,
+            projectId: process.env.PROJECTID
+          });
 
-  const database  = firebase.database();*/
-  
+          // Initialize Cloud Firestore through Firebase
+          var db = firebase.firestore();
+          
+          // Disable deprecated features
+          db.settings({
+            timestampsInSnapshots: true
+          });
+
+  export default firebase;
 

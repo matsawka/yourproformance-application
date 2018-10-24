@@ -12,10 +12,8 @@ export default class Step2 extends React.Component {
         this.handleCalculate = this.handleCalculate.bind(this);
         this.handleStep2 = this.handleStep2.bind(this);
         this.selectorChangeC = this.selectorChangeC.bind(this);
-        console.log(props);
-        
+        this.selectorChangeI = this.selectorChangeI.bind(this);
         this.state = {  
-            
         };
     }
     handleBitcoin(e) {
@@ -50,11 +48,10 @@ export default class Step2 extends React.Component {
       const intendedUse = document.getElementById("intended_use");
       var intendedUseValue = intendedUse.options[intendedUse.selectedIndex].value;
       if(intendedUseValue != "Select an option" ) {
-        document.getElementById("source_collateral_validation").innerHTML = '';
+        document.getElementById("intended_use_validation").innerHTML = '';
       } 
         else {
           document.getElementById("intended_use_validation").innerHTML = '<b><span class="required">*Please Select an Option</span></b>'
-        console.log(' intended usebad');
       } 
     }
     handleCalculate(e) {
@@ -74,7 +71,6 @@ export default class Step2 extends React.Component {
         document.getElementById("amount_granted").setAttribute('currency', '');
       }
       else {
-        console.log(enter_loan_amount);
         document.getElementById("enter_loan_amount").value= enter_loan_amount;
         document.getElementById("enter_loan_amount_validation").innerHTML = '';
         const collateral_needed = (parseFloat(enter_loan_amount) + parseFloat(enter_loan_amount * rate)).toFixed(2);
@@ -88,26 +84,25 @@ export default class Step2 extends React.Component {
     handleStep2(e) {
       e.preventDefault();
       let cryptoCurrency = document.getElementsByClassName("button__cypto__selected")[0].id;
-      const amount_granted = document.getElementById("amount_granted").getAttribute('currency');
-      const loan_amount = document.getElementById("enter_loan_amount").value.trim();
+      let amount_granted = document.getElementById("amount_granted").getAttribute('currency');
+      let loan_amount = document.getElementById("enter_loan_amount").value.trim();
+      loan_amount = numeral(loan_amount).format('0,0.00');
       cryptoCurrency = cryptoCurrency.substr(8); //get crypto coin type - striping out the id
      
       if(amount_granted != null && amount_granted != "") { 
-        console.log('good'); var amount_granted_pass = true;
+        var amount_granted_pass = true;
+        amount_granted = numeral(amount_granted).format('0,0.00');
       } else {
-        console.log('null'); 
         document.getElementById("enter_loan_amount_validation").innerHTML = '<b><span class="required">*Please Enter a Number</span></b>';
-        
       }
       
       const sourceCollateral = document.getElementById("source_collateral");
       var sourceCollateralValue = sourceCollateral.options[sourceCollateral.selectedIndex].value;
       if(sourceCollateralValue != "Select an option") { 
-        console.log('good'); var sourceCollateralValueResult= true;
+        var sourceCollateralValueResult= true;
       }
         else {
           document.getElementById("source_collateral_validation").innerHTML = '<b><span class="required">*Please Select an Option</span></b>';
-         console.log('bad');
         }
       const intendedUse = document.getElementById("intended_use");
       var intendedUseValue = intendedUse.options[intendedUse.selectedIndex].value;
@@ -120,12 +115,9 @@ export default class Step2 extends React.Component {
       } 
       
       if(amount_granted_pass && sourceCollateralValueResult && sourceCollateralValueResult) {
-                localStorage.setItem('currency-type', cryptoCurrency);
-                localStorage.setItem('loan-amount', loan_amount);
-                localStorage.setItem('collateral', amount_granted);
-                localStorage.setItem('source', sourceCollateralValue);
-                localStorage.setItem('intended', intendedUseValue);
-        
+
+        let step2Array = [cryptoCurrency, loan_amount, amount_granted, sourceCollateralValue, intendedUseValue];
+        this.props.handleForm(step2Array);
         this.props.next();
       }
     }
@@ -155,7 +147,7 @@ export default class Step2 extends React.Component {
 
                 <div className="row">
                     <div className="col-12 col-sm-6">
-                      <p><b>Loan Amount</b></p>
+                      <p><b>Loan Amount (USD)</b></p>
                         <input className="add-option__input" type="text" name="enter_loan_amount" id="enter_loan_amount" placeholder="$ Enter Loan Amount"/>
                         <label id="enter_loan_amount_validation"></label>
                     </div>
@@ -188,7 +180,7 @@ export default class Step2 extends React.Component {
                   </div> 
                   <div className="col-12 col-sm-6">
                     <p><b>What is the intended use of this form</b></p>
-                    <select id="intended_use">
+                    <select id="intended_use" onChange={this.selectorChangeI}>
                       <option value="Select an option">Select an option</option>
                       <option value="Purchase Real Estate">Purchase Real Estate</option>
                       <option value="Purchase Traditional Investments">Purchase Traditional Investments</option>
@@ -208,5 +200,3 @@ export default class Step2 extends React.Component {
         );
     }
 }
-
-//<button onClick={this.props.next}>Next</button>

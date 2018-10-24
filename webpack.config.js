@@ -38,7 +38,11 @@ module.exports = (env) => {
         }]
     },
     plugins: [
-      CSSExtract
+      CSSExtract,
+      new webpack.DefinePlugin({           
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),      
+        API_HOST: JSON.stringify(process.env.API_HOST)
+      })
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
