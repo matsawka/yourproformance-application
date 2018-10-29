@@ -1,5 +1,5 @@
 .header {
-    background: $off-black;
+    background: $dark-silver;
     color:white;
     margin-bottom: $m-size;
     padding: $m-size 0;
@@ -15,12 +15,17 @@
     font-size: $l-size;
     margin:0;
 }
+.header__title a {
+    color: white;
+    text-decoration: none;
+}
 .subheader {
     max-width:60rem;
     margin: 0 auto $m-size auto;
     padding: 0 $m-size; 
     text-align: center;
     color:white;
+    font-size: $lm-size;
 }
 @media (min-width: $desktop-breakpoint) {
     .header {

@@ -2,7 +2,7 @@ html {
     font-size: 62.5%;
 }
 body {
-    background-color: $background-blue;
+    background-color: $red;
     font-family: Helvetica, Arial, sans-serif;
     font-size: $m-size;
 }
@@ -17,4 +17,11 @@ button:disabled {
 }
 .displayBlock {
     display:block;
+}
+label {
+    color: $midnight;
+}
+a, a:hover {
+    color: darken($midnight, 20%);
+    text-decoration: underline;
 }

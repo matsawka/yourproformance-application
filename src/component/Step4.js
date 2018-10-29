@@ -13,7 +13,7 @@ export default class Step4 extends React.Component {
      } 
       return (
         <div>
-          <h2 className="subheader">Success!!!</h2>
+          <h2 className="subheader">Your Application Has Been Successfully Submitted</h2>
           <div className="container">
                 <div className="row">
                     <div className="col-12 col-sm-6">

@@ -3,7 +3,9 @@ import React from 'react';
 const Header = (props) => (
     <div className="header">
         <div className="header__container">
-            <h1 className="header__title">{props.title}</h1>
+            <h1 className="header__title">
+            <a href="https://www.yourproformance.com/" target="_blank">ProFormance</a>
+            </h1>
            
         </div>
 </div>

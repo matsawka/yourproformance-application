@@ -1,17 +1,16 @@
 //Colors 
-$off-black: #20222b;
-$dark-blue: #333745;
-$blue: #3c4251;
-$light-blue: #464b5e;
 $off-white: #a5afd7;
-$purple: #8357c5;
-$background-blue: #1D2B43;
 $required:red;
-$box: #c8daf7;
+$box: #f5eff7;
+$red: #9E0603;
+$silver: #C0C0C0;
+$dark-silver: #6e6968;
+$midnight: #3a3a3a;
 
 //Spacing
 $s-size: 1.2rem;
 $m-size: 1.6rem;
+$lm-size: 2.6rem;
 $l-size: 3.2rem;
 $xl-size: 4.8rem;
 $desktop-breakpoint: 45rem;
@@ -22,9 +21,3 @@ $desktop-breakpoint: 45rem;
   border-radius: $radius;
   background-clip: padding-box;  /* stops bg color from leaking outside the border: */
 }
-
- /*@media screen and (min-width: 800px) {
-    .column {
-      flex: 1;
-    }
-  }*/

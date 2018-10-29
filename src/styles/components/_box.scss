@@ -3,4 +3,5 @@
     padding: $s-size;
     margin-bottom: $s-size;
     @include border-radius(5px);
+    border: $silver 1px solid;
 }

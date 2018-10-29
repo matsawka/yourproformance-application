@@ -3,13 +3,17 @@
 }
 //Button
 .button {
-    background: $background-blue;
+    background: $midnight;
     border:none;
-    border-bottom: .3rem solid darken($background-blue, 10%);
+    border-bottom: .3rem solid darken($midnight, 10%);
     color:white;
     font-weight: 500;
     padding: $s-size;
     @include border-radius(5px);
+    &:hover {
+        background: darken($midnight, 5%);
+        color:white;
+    }
 }
 //modified base version
 .button--link {
@@ -23,11 +27,12 @@
     @include border-radius(20px);
     display:flex;
     justify-content: center;
+    border: .1rem solid darken($midnight, 10%);
 }
 .button__cyrpto__unselected {
     background-color:white;
-    color: $background-blue;
-    border: .1rem solid darken($background-blue, 10%);
+    color: $midnight;
+    border: .1rem solid darken($midnight, 10%);
 }
 
 @media (min-width: $desktop-breakpoint) {
