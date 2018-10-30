@@ -84,6 +84,7 @@ export default class Step3 extends React.Component {
                const uniqueId = uuid();
                    
                     var dbCall = db.collection("users").doc(uniqueId).set({
+                    status: 'new',
                     firstName: this.props.currentData[0],
                     lastName: this.props.currentData[1],
                     email: this.props.currentData[2],
@@ -100,8 +101,9 @@ export default class Step3 extends React.Component {
                       currencyType: this.props.currentData[6],
                       loanAmoun: this.props.currentData[7],
                       collateral: this.props.currentData[8],
-                      source:  this.props.currentData[9],
-                      intended: this.props.currentData[10]
+                      LTV:  this.props.currentData[9],
+                      source:  this.props.currentData[10],
+                      intended: this.props.currentData[11]
                     }
                 });
                 this.props.handleId(uniqueId);

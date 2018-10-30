@@ -13,11 +13,51 @@ export default class Step2 extends React.Component {
         this.handleStep2 = this.handleStep2.bind(this);
         this.selectorChangeC = this.selectorChangeC.bind(this);
         this.selectorChangeI = this.selectorChangeI.bind(this);
+        this.getbitCoinValue = this.getbitCoinValue.bind(this);
         this.state = {  
+          currencyType: 'bitcoin',
         };
     }
+    getbitCoinValue(){
+        let request = new XMLHttpRequest();
+        request.open('GET', 'https://api.coinmarketcap.com/v2/ticker/1/', true);
+        request.onload = function () {
+          // Begin accessing JSON data here
+          let data = JSON.parse(this.response);    
+          if (request.status >= 200 && request.status < 400) {
+            let bitCoinPrice =  data.data.quotes.USD.price.toFixed(2);
+            bitCoinPrice = numeral(bitCoinPrice).format('0,0.00');
+            document.getElementById("bitCoinHolder").innerHTML = bitCoinPrice;
+            
+          } else {
+            console.log('error');
+          }
+        }
+        request.send();
+        
+      }
+      getEtherValue(){
+        let request = new XMLHttpRequest();
+        request.open('GET', 'https://api.coinmarketcap.com/v2/ticker/1027/', true);
+        request.onload = function () {
+          // Begin accessing JSON data here
+          let data = JSON.parse(this.response);    
+          if (request.status >= 200 && request.status < 400) {
+            let etherPrice =  data.data.quotes.USD.price.toFixed(2);
+            etherPrice = numeral(etherPrice).format('0,0.00');
+            document.getElementById("etherHolder").innerHTML = etherPrice;
+          } else {
+            console.log('error');
+          }
+        }
+        request.send();
+        
+      }
     handleBitcoin(e) {
       e.preventDefault();
+      this.setState({
+        currencyType: 'bitcoin'
+      });
       document.getElementById("button__ether").classList.add('button__cyrpto__unselected');
       document.getElementById("button__ether").classList.remove("button__cypto__selected");
       document.getElementById("button__bitcoin").classList.remove('button__cyrpto__unselected');
@@ -27,6 +67,9 @@ export default class Step2 extends React.Component {
     }
     handleEther(e) {
       e.preventDefault();
+      this.setState({
+        currencyType: 'ether'
+      });
       document.getElementById("button__ether").classList.remove('button__cyrpto__unselected');
       document.getElementById("button__ether").classList.add("button__cypto__selected");
       document.getElementById("button__bitcoin").classList.add('button__cyrpto__unselected');
@@ -54,15 +97,26 @@ export default class Step2 extends React.Component {
           document.getElementById("intended_use_validation").innerHTML = '<b><span class="required">*Please Select an Option</span></b>'
       } 
     }
+    square(number) {
+      return number * number;
+    }
     handleCalculate(e) {
       e.preventDefault();
-      let enter_loan_amount = document.getElementById("enter_loan_amount").value.trim();
-      
+      let loanAmount = document.getElementById("enter_loan_amount").value.trim();
       const regexp = '^\d+(\.\d{1,2})?$';
-      const rate = .35;
-      enter_loan_amount = enter_loan_amount.replace(regexp,'');
-      enter_loan_amount = parseFloat(enter_loan_amount).toFixed(2); //make loan amount .XX
-      if (!validator.isDecimal(enter_loan_amount)) {
+      loanAmount = loanAmount.replace(regexp,'');
+      loanAmount = loanAmount.replace(/[,]+/g, ""); //remove commas
+      loanAmount = parseFloat(loanAmount).toFixed(2); //make loan amount .XX
+      
+      const loan_to_value = document.getElementById("loan_to_value")
+      let LTV = loan_to_value.options[loan_to_value.selectedIndex].value;
+
+      let etherPrice = document.getElementById("etherHolder").innerHTML;
+      etherPrice = parseFloat(etherPrice.replace(/,/g, ''))
+      let bitCoinPrice = document.getElementById("bitCoinHolder").innerHTML;
+      bitCoinPrice = parseFloat(bitCoinPrice.replace(/,/g, ''))
+
+      if (!validator.isDecimal(loanAmount)) {
         document.getElementById("enter_loan_amount_validation").innerHTML = '<b><span class="required">*Please Enter a Number</span></b>';
         document.getElementById("amount_granted").setAttribute('currency', '');
       }
@@ -71,14 +125,23 @@ export default class Step2 extends React.Component {
         document.getElementById("amount_granted").setAttribute('currency', '');
       }
       else {
-        document.getElementById("enter_loan_amount").value= enter_loan_amount;
+        document.getElementById("enter_loan_amount").value= numeral(loanAmount).format('0,0.00');
         document.getElementById("enter_loan_amount_validation").innerHTML = '';
-        const collateral_needed = (parseFloat(enter_loan_amount) + parseFloat(enter_loan_amount * rate)).toFixed(2);
+        
+        const c = (1/LTV) * loanAmount;
+        const currencyType = this.state.currencyType;
+        if(currencyType == "bitcoin") {
+          var amountGranted = c /bitCoinPrice;
+        }
+        else if(currencyType == "ether") {
+          var amountGranted = c /etherPrice;
+        }
+        else {
+          console.log('error in calculation');
+        }
         const amount_granted = document.getElementById("amount_granted");   // Get the first <h1> element in the document
-        //var att = document.createAttribute("currency");       // Create a "class" attribute
-        //att.value = collateral_needed;
-        amount_granted.setAttribute('currency', collateral_needed); 
-        amount_granted.value = numeral(collateral_needed).format('0,0.00');
+        amount_granted.setAttribute('currency', amountGranted); 
+        amount_granted.value = numeral(amountGranted).format('0,0.00');
       } 
     }  
     handleStep2(e) {
@@ -88,14 +151,14 @@ export default class Step2 extends React.Component {
       let loan_amount = document.getElementById("enter_loan_amount").value.trim();
       loan_amount = numeral(loan_amount).format('0,0.00');
       cryptoCurrency = cryptoCurrency.substr(8); //get crypto coin type - striping out the id
-     
+      let LTV = loan_to_value.options[loan_to_value.selectedIndex].value;
+
       if(amount_granted != null && amount_granted != "") { 
         var amount_granted_pass = true;
         amount_granted = numeral(amount_granted).format('0,0.00');
       } else {
         document.getElementById("enter_loan_amount_validation").innerHTML = '<b><span class="required">*Please Enter a Number</span></b>';
       }
-      
       const sourceCollateral = document.getElementById("source_collateral");
       var sourceCollateralValue = sourceCollateral.options[sourceCollateral.selectedIndex].value;
       if(sourceCollateralValue != "Select an option") { 
@@ -107,16 +170,15 @@ export default class Step2 extends React.Component {
       const intendedUse = document.getElementById("intended_use");
       var intendedUseValue = intendedUse.options[intendedUse.selectedIndex].value;
       if(intendedUseValue != "Select an option" ) {
-        console.log('intended use good'); var intendedUseValueResult = true;
+        var intendedUseValueResult = true;
       } 
         else {
           document.getElementById("intended_use_validation").innerHTML = '<b><span class="required">*Please Select an Option</span></b>'
-        console.log(' intended usebad');
       } 
       
-      if(amount_granted_pass && sourceCollateralValueResult && sourceCollateralValueResult) {
+      if(amount_granted_pass && sourceCollateralValueResult && sourceCollateralValueResult && intendedUseValueResult) {
 
-        let step2Array = [cryptoCurrency, loan_amount, amount_granted, sourceCollateralValue, intendedUseValue];
+        let step2Array = [cryptoCurrency, loan_amount, amount_granted, LTV, sourceCollateralValue, intendedUseValue];
         this.props.handleForm(step2Array);
         this.props.next();
       }
@@ -130,6 +192,18 @@ export default class Step2 extends React.Component {
           <div>
           <h2 className="subheader">Start Your Loan Application!</h2>
           <div className="container">
+            <div className="row">
+              <div className="col-12 col-sm-6">
+                  <div className="box">
+                        <b>Bit Coin Price:</b> $<span id="bitCoinHolder">{this.getbitCoinValue()}</span> USD
+                  </div>
+                </div>
+                <div className="col-12 col-sm-6">
+                  <div className="box">
+                        <b>Ether Price:</b> $<span id="etherHolder">{this.getEtherValue()}</span> USD
+                  </div>
+                </div>
+            </div>
           <form onSubmit={this.handleStep2}>
             <div className="row">
               <div className="add-option__div col-12 text-center">
@@ -155,9 +229,19 @@ export default class Step2 extends React.Component {
                     <div className="col-12 col-sm-6">
                       <p><b>Collateral Needed</b></p>
                       <input className="add-option__input" type="text" name="amount_granted" id="amount_granted" currency="" placeholder="btc 0.000000" disabled/>
-                      <p>Collateral amount based on 35% LTV</p>
                     </div>
-                  </div>
+                  
+                      <div className="col-6">
+                      <p><b>Loan to Value</b></p>
+                      <select id="loan_to_value">
+                          <option value=".15">15%</option>
+                          <option value=".25">25%</option>
+                          <option value=".35">35%</option>
+                          <option value=".50">50%</option>
+                        </select>
+                        <label id="loan_to_value_validation"></label>
+                      </div>
+                    </div>
                   <div className="row">
                       <div className="col-12 ">
                       <button className="button" onClick={this.handleCalculate}>Calculate</button>  
@@ -176,7 +260,7 @@ export default class Step2 extends React.Component {
                       <option value="Company ICO">Company ICO</option>
                       <option value="Other">Other</option>
                     </select>
-                    <p id="source_collateral_validation">&nbsp;</p>
+                    <label id="source_collateral_validation">&nbsp;</label>
                   </div> 
                   <div className="col-12 col-sm-6">
                     <p><b>What is the intended use of this form</b></p>
@@ -190,7 +274,8 @@ export default class Step2 extends React.Component {
                       <option value="General Expense">General Expense</option>
                       <option value="Other">Other</option>
                     </select>
-                    <p id="intended_use_validation">&nbsp;</p>
+                    
+                    <label id="intended_use_validation">&nbsp;</label>
                   </div>  
                 </div>
                 <button className="button">Continue</button>

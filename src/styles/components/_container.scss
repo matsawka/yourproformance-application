@@ -20,10 +20,15 @@
     width: 100%;
 }
 select {
-    max-width:100%;
+    width:100%;
 }
 .required {
     color: $required;
+}
+label {
+    display:block;
+    min-height:24px;
+
 }
 button:focus {
     outline: 0;
