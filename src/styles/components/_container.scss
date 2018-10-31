@@ -25,10 +25,9 @@ select {
 .required {
     color: $required;
 }
-label {
-    display:block;
-    min-height:24px;
-
+#enter_loan_amount_validation, #intended_use_validation, #source_collateral_validation {
+    display: block;
+    min-height: 24px;
 }
 button:focus {
     outline: 0;

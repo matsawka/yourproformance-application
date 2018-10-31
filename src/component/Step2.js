@@ -129,9 +129,10 @@ export default class Step2 extends React.Component {
         document.getElementById("enter_loan_amount_validation").innerHTML = '';
         
         const c = (1/LTV) * loanAmount;
-        const currencyType = this.state.currencyType;
+        let currencyType = this.state.currencyType;
         if(currencyType == "bitcoin") {
           var amountGranted = c /bitCoinPrice;
+          currencyType = "btc";
         }
         else if(currencyType == "ether") {
           var amountGranted = c /etherPrice;
@@ -141,7 +142,8 @@ export default class Step2 extends React.Component {
         }
         const amount_granted = document.getElementById("amount_granted");   // Get the first <h1> element in the document
         amount_granted.setAttribute('currency', amountGranted); 
-        amount_granted.value = numeral(amountGranted).format('0,0.00');
+        let amountValueDisplay = currencyType + " " + numeral(amountGranted).format('0,0.00');
+        amount_granted.value = amountValueDisplay;
       } 
     }  
     handleStep2(e) {
@@ -231,7 +233,7 @@ export default class Step2 extends React.Component {
                       <input className="add-option__input" type="text" name="amount_granted" id="amount_granted" currency="" placeholder="btc 0.000000" disabled/>
                     </div>
                   
-                      <div className="col-6">
+                      <div className="col-12 col-sm-6">
                       <p><b>Loan to Value</b></p>
                       <select id="loan_to_value">
                           <option value=".15">15%</option>
@@ -245,6 +247,28 @@ export default class Step2 extends React.Component {
                   <div className="row">
                       <div className="col-12 ">
                       <button className="button" onClick={this.handleCalculate}>Calculate</button>  
+                      </div>
+                  </div>
+                  <div className="row display-flex">
+                      <div className="col-12 col-sm-3">
+                        <div className="box">
+                        <p>Monthly Payment</p>
+                        </div> 
+                      </div>
+                      <div className="col-12 col-sm-3">
+                        <div className="box">
+                        <p>Total Interest</p>
+                        </div> 
+                      </div>
+                      <div className="col-12 col-sm-3">
+                        <div className="box">
+                        <p>APR</p>
+                        </div> 
+                      </div>
+                      <div className="col-12 col-sm-3">
+                        <div className="box">
+                        <p>Margin Call Price</p>
+                        </div> 
                       </div>
                   </div>
                 
