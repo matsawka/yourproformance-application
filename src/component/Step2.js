@@ -236,8 +236,7 @@ export default class Step2 extends React.Component {
                       <div className="col-12 col-sm-6">
                       <p><b>Loan to Value</b></p>
                       <select id="loan_to_value">
-                          <option value=".15">15%</option>
-                          <option value=".25">25%</option>
+                          <option value=".20">20%</option>
                           <option value=".35">35%</option>
                           <option value=".50">50%</option>
                         </select>
