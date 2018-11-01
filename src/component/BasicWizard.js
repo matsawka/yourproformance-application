@@ -29,7 +29,6 @@ export default class BasicWizard extends React.Component {
       this.setState({
         currentData: currentData
       });
-      console.log(currentData);
     }
     handleId(uniqueId) {
       this.setState({
