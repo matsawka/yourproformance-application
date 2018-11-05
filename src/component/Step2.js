@@ -63,7 +63,7 @@ export default class Step2 extends React.Component {
       document.getElementById("button__bitcoin").classList.remove('button__cyrpto__unselected');
       document.getElementById("button__bitcoin").classList.add("button__cypto__selected");
       document.getElementById("amount_granted").value='';
-      document.getElementById("amount_granted").placeholder='btc 0.000000';
+      document.getElementById("amount_granted").placeholder='0.00000';
     }
     handleEther(e) {
       e.preventDefault();
@@ -75,7 +75,7 @@ export default class Step2 extends React.Component {
       document.getElementById("button__bitcoin").classList.add('button__cyrpto__unselected');
       document.getElementById("button__bitcoin").classList.remove("button__cypto__selected");
       document.getElementById("amount_granted").value='';
-      document.getElementById("amount_granted").placeholder='ether 0.000000';
+      document.getElementById("amount_granted").placeholder='0.00000';
     }
     selectorChangeC() {
       const sourceCollateral = document.getElementById("source_collateral")
@@ -142,7 +142,7 @@ export default class Step2 extends React.Component {
         }
         const amount_granted = document.getElementById("amount_granted");   // Get the first <h1> element in the document
         amount_granted.setAttribute('currency', amountGranted); 
-        let amountValueDisplay = currencyType + " " + numeral(amountGranted).format('0,0.00');
+        let amountValueDisplay = numeral(amountGranted).format('0,0.00000');
         amount_granted.value = amountValueDisplay;
       } 
     }  
@@ -197,12 +197,12 @@ export default class Step2 extends React.Component {
             <div className="row">
               <div className="col-12 col-sm-6">
                   <div className="box">
-                        <b>Bit Coin Price:</b> $<span id="bitCoinHolder">{this.getbitCoinValue()}</span> USD
+                        <b>Bitcoin Price:</b> $<span id="bitCoinHolder">{this.getbitCoinValue()}</span> USD
                   </div>
                 </div>
                 <div className="col-12 col-sm-6">
                   <div className="box">
-                        <b>Ether Price:</b> $<span id="etherHolder">{this.getEtherValue()}</span> USD
+                        <b>Ethereum Price:</b> $<span id="etherHolder">{this.getEtherValue()}</span> USD
                   </div>
                 </div>
             </div>
@@ -217,7 +217,7 @@ export default class Step2 extends React.Component {
                      <button onClick={this.handleBitcoin} className="button button__crypto button__cypto__selected" id="button__bitcoin"><FaBitcoin/>&nbsp;Bitcoin</button>  
                   </div>  
                   <div className="col-12 col-sm-6">
-                        <button onClick={this.handleEther} className="button button__crypto button__cyrpto__unselected" id="button__ether"><FaEthereum />&nbsp;Ether</button>
+                        <button onClick={this.handleEther} className="button button__crypto button__cyrpto__unselected" id="button__ether"><FaEthereum />&nbsp;Ethereum</button>
                   </div>
                 </div>
 
@@ -230,7 +230,7 @@ export default class Step2 extends React.Component {
                     
                     <div className="col-12 col-sm-6">
                       <p><b>Collateral Needed</b></p>
-                      <input className="add-option__input" type="text" name="amount_granted" id="amount_granted" currency="" placeholder="btc 0.000000" disabled/>
+                      <input className="add-option__input" type="text" name="amount_granted" id="amount_granted" currency="" placeholder="0.00000" disabled/>
                     </div>
                   
                       <div className="col-12 col-sm-6">
@@ -261,7 +261,7 @@ export default class Step2 extends React.Component {
                       </div>
                       <div className="col-12 col-sm-3">
                         <div className="box">
-                        <p>APR</p>
+                        <p>APR*</p>
                         </div> 
                       </div>
                       <div className="col-12 col-sm-3">
@@ -303,6 +303,7 @@ export default class Step2 extends React.Component {
                 </div>
                 <button className="button">Continue</button>
               </form>  
+              <p className="smalltext">*All loans are variable rate at Prime + Spread. APR shown reflects Prime at 5.25%. See <a href="" target="_blank">Terms and Conditions</a> for further details.</p>
             </div>
           </div>
         );

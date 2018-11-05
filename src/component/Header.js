@@ -1,9 +1,24 @@
 import React from 'react';
+import { FaTwitter } from 'react-icons/fa';
+import { FaLinkedin } from 'react-icons/fa';
+import { IoIosSend } from 'react-icons/io';
+
+
+
 
 const Header = (props) => (
-    <div className="header">
-        <div className="header__container">
-            <a href="https://www.yourproformance.com/" target="_blank"><img src="/images/logo.png"/></a>
+    <div className="row header">
+        <div className="container header__container">
+            <div className="row">
+                <div className="col-sm-8 col-12">
+                    <a href="https://www.yourproformance.com/" target="_blank"><img src="/images/logo.png"/></a>
+                </div>
+                <div className="header__social col-sm-4">
+                    <a className="social__email" href=""><IoIosSend/></a>
+                    <a className="social__linkedin" href=""><FaLinkedin/></a>
+                    <a className="social__twitter" href=""><FaTwitter/></a>
+                </div>
+            </div>
         </div>
 </div>
 );

@@ -1,5 +1,7 @@
 import React from 'react'
 import moment from 'moment';
+import { IoIosPrint } from 'react-icons/io';
+
 
 
 
@@ -22,6 +24,9 @@ export default class Step4 extends React.Component {
                         <p>We've reviewing your application at the moment, and will have an update within one business day.</p>
                         <p>Have any questions?</p>
                         <p>Email us at: <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Send Mail</a></p>
+                        <a className="social__print" href="javascript:window.print()">
+                            <IoIosPrint/>
+                        </a>
                      </div> 
                      <div className="col-12 col-sm-6">
                       <div className="box">
@@ -29,11 +34,11 @@ export default class Step4 extends React.Component {
                             <i><span id="loanAmount">${this.props.currentData[7]}</span></i>
                       </div>
                       <div className="box">
-                            <b>COLLATERAL AMOUNT</b><br/>
+                            <b>Collateral Amount</b><br/>
                             <i><span id="currencyType">{this.props.currentData[6]}</span>: <span id="collateralAmount">{this.props.currentData[8]}</span></i>
                       </div>
                       <b>Submitted:</b><br/><i>{moment().format('MMMM Do YYYY, h:mm a')}</i><br/>
-                      <b>Loan ID:</b><br/><i>{this.props.uniqueId}</i>
+                      <b>Loan Request ID:</b><br/><i>{this.props.uniqueId}</i>
                     
                      </div>
                 </div>

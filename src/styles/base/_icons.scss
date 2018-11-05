@@ -1,0 +1,52 @@
+.header__social a{
+    height: 37px;
+    width: 37px;
+    text-decoration: none;
+    font-size: 25px;
+    border-radius: 3px;
+    color: white;
+    float:right;
+    margin-left: 5px;
+    padding-left: 5px;
+}
+a.social__twitter{
+    background-color: #0ec3f3;
+    border-bottom: 1px solid #0ea6c9;
+    &:hover {
+        background-color: #26c9f4;
+        color: #FFFFFF;
+    }
+}
+a.social__linkedin {
+    background-color: #007ab8;
+    border-bottom: 1px solid #02668e;
+    &:hover {
+        background-color: #1a87bf;
+        color: #FFFFFF;
+    }
+}
+a.social__email {
+    background-color: #0f2C3d;
+    border-bottom: 1px solid #08161e;
+    &:hover {
+        background-color: #274150;
+    }
+}
+a.social__print {
+    height: 37px;
+    width: 37px;
+    text-decoration: none;
+    font-size: 25px;
+    border-radius: 3px;
+    color: white;
+    padding-left: 6px;
+    display:inline-block;
+
+
+
+    background-color: #0f2c3d;
+    border-bottom: 1px solid #08161e;
+    &:hover {
+        background-color: #274150;
+    }
+}

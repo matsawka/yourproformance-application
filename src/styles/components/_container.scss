@@ -32,3 +32,6 @@ select {
 button:focus {
     outline: 0;
 }
+form {
+    margin-bottom: $m-size;
+}

@@ -11,7 +11,7 @@ export default class BasicWizard extends React.Component {
     constructor(props) {
         super(props);
       this.state = {
-        currentStep: 1,
+        currentStep: 4,
         currentData: [],
         uniqueId: ''
       };

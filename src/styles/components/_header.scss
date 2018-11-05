@@ -2,12 +2,10 @@
     background: $silver;
     color:white;
     margin-bottom: $m-size;
-    padding: $m-size 0;
 }
 .header__container {
-    max-width:75rem;
-    margin: 0 auto;
-    padding: 0 $m-size;
+    padding: $m-size $m-size 0 $m-size;
+    background-color:transparent;
 }
 //BEM - block element modifier - convention
 //title is in header child __
@@ -32,3 +30,9 @@
         margin-bottom: $xl-size;
     }
 }
+@media (max-width: $desktop-breakpoint) {
+    .header__social {
+        display:none;
+    }
+}
+
