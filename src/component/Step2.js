@@ -15,6 +15,7 @@ export default class Step2 extends React.Component {
         this.selectorChangeC = this.selectorChangeC.bind(this);
         this.selectorChangeI = this.selectorChangeI.bind(this);
         this.getbitCoinValue = this.getbitCoinValue.bind(this);
+        this.clearBoxes = this.clearBoxes.bind(this);
         this.state = {  
           currencyType: 'bitcoin',
         };
@@ -119,6 +120,7 @@ export default class Step2 extends React.Component {
       document.getElementById("button__bitcoin").classList.add("button__cypto__selected");
       document.getElementById("amount_granted").value='';
       document.getElementById("amount_granted").placeholder='0.00000';
+      this.clearBoxes();
     }
     handleEther(e) {
       e.preventDefault();
@@ -131,6 +133,13 @@ export default class Step2 extends React.Component {
       document.getElementById("button__bitcoin").classList.remove("button__cypto__selected");
       document.getElementById("amount_granted").value='';
       document.getElementById("amount_granted").placeholder='0.00000';
+      this.clearBoxes();
+    }
+    clearBoxes() {
+      document.getElementById("apr_rate").innerHTML = "&nbsp;";
+      document.getElementById("monthly_payment").innerHTML = "&nbsp;";
+      document.getElementById("total_interest").innerHTML = "&nbsp;";
+      document.getElementById("margin_call").innerHTML = "&nbsp;";
     }
     selectorChangeC() {
       const sourceCollateral = document.getElementById("source_collateral")
@@ -181,13 +190,15 @@ export default class Step2 extends React.Component {
         document.getElementById("enter_loan_amount_validation").innerHTML = '';
         
         const c = (1/LTV) * loanAmount;
-        let currencyType = this.state.currencyType;
+        var currencyType = this.state.currencyType;
         if(currencyType == "bitcoin") {
           var amountGranted = c /bitCoinPrice;
+          var marginCallCurrency = bitCoinPrice;
           currencyType = "btc";
         }
         else if(currencyType == "ether") {
           var amountGranted = c /etherPrice;
+          var marginCallCurrency = etherPrice;
         }
         else {
           console.log('error in calculation');
@@ -205,6 +216,9 @@ export default class Step2 extends React.Component {
         //Total Interest
         const totalInterest = APR/100 * loanAmount * 5;
         document.getElementById("total_interest").innerHTML = "$" + numeral(totalInterest).format('0,0.00');
+        //Margin Call
+        const marginCall = loanAmount / (.8 * (loanAmount/LTV/marginCallCurrency));
+        document.getElementById("margin_call").innerHTML = "$" + numeral(marginCall).format('0,0.00');
       } 
     }  
     handleStep2(e) {
