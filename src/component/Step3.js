@@ -103,7 +103,11 @@ export default class Step3 extends React.Component {
                       collateral: this.props.currentData[8],
                       LTV:  this.props.currentData[9],
                       source:  this.props.currentData[10],
-                      intended: this.props.currentData[11]
+                      intended: this.props.currentData[11],
+                      apr: this.props.currentData[12],
+                      monthlyPayment: this.props.currentData[13],
+                      totalInterest: this.props.currentData[14],
+                      marginCall: this.props.currentData[15]
                     }
                 });
                 this.props.handleId(uniqueId);

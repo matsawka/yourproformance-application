@@ -5,8 +5,6 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import Step4 from './Step4';
 
-
-
 export default class BasicWizard extends React.Component {
     constructor(props) {
         super(props);

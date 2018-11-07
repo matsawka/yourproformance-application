@@ -9,6 +9,7 @@ export default class Step2 extends React.Component {
         super(props);
         this.handleBitcoin = this.handleBitcoin.bind(this);
         this.handleEther = this.handleEther.bind(this);
+        this.getAPR = this.getAPR.bind(this);
         this.handleCalculate = this.handleCalculate.bind(this);
         this.handleStep2 = this.handleStep2.bind(this);
         this.selectorChangeC = this.selectorChangeC.bind(this);
@@ -53,6 +54,60 @@ export default class Step2 extends React.Component {
         request.send();
         
       }
+    getAPR(loanAmount, LTV) {
+      const myLoanAmount = loanAmount;
+      const myLTV = LTV;
+      switch(true) {
+        case (myLoanAmount <= 10000 && myLTV == .15):
+          return '12.75';
+          break;
+        case (myLoanAmount <= 10000 && LTV == .25):
+          return '14.00';
+          break; 
+        case (myLoanAmount <= 10000 && LTV == .35):
+          return '15.50';
+          break;
+        case (myLoanAmount <= 10000 && LTV == .50):
+          return '17.00';
+          break; 
+        case (myLoanAmount <= 25000 && LTV == .15):
+          return '12.25';
+          break;
+        case (myLoanAmount <= 25000 && LTV == .25):
+          return '13.50';
+          break;
+        case (myLoanAmount <= 25000 && LTV == .35):
+          return '15.00';
+          break;
+        case (myLoanAmount <= 25000 && LTV == .50):
+          return '16.50';
+          break;
+        case (myLoanAmount <= 50000 && LTV == .15):
+          return '10.75';
+          break;
+        case (myLoanAmount <= 50000 && LTV == .25):
+          return '12.00';
+          break;
+        case (myLoanAmount <= 50000 && LTV == .35):
+          return '13.50';
+          break;
+        case (myLoanAmount <= 50000 && LTV == .50):
+          return '15.00';
+          break;
+        case (myLoanAmount > 50000 && LTV == .15):
+          return '10.00';
+          break;
+        case (myLoanAmount > 50000 && LTV == .25):
+          return '11.25';
+          break;
+        case (myLoanAmount > 50000 && LTV == .35):
+          return '12.75';
+          break;
+        case (myLoanAmount > 50000 && LTV == .50):
+          return '14.25';
+          break;
+      }
+    }
     handleBitcoin(e) {
       e.preventDefault();
       this.setState({
@@ -97,9 +152,6 @@ export default class Step2 extends React.Component {
           document.getElementById("intended_use_validation").innerHTML = '<b><span class="required">*Please Select an Option</span></b>'
       } 
     }
-    square(number) {
-      return number * number;
-    }
     handleCalculate(e) {
       e.preventDefault();
       let loanAmount = document.getElementById("enter_loan_amount").value.trim();
@@ -110,7 +162,7 @@ export default class Step2 extends React.Component {
       
       const loan_to_value = document.getElementById("loan_to_value")
       let LTV = loan_to_value.options[loan_to_value.selectedIndex].value;
-
+      
       let etherPrice = document.getElementById("etherHolder").innerHTML;
       etherPrice = parseFloat(etherPrice.replace(/,/g, ''))
       let bitCoinPrice = document.getElementById("bitCoinHolder").innerHTML;
@@ -120,7 +172,7 @@ export default class Step2 extends React.Component {
         document.getElementById("enter_loan_amount_validation").innerHTML = '<b><span class="required">*Please Enter a Number</span></b>';
         document.getElementById("amount_granted").setAttribute('currency', '');
       }
-      else if(enter_loan_amount <  2000) {
+      else if(loanAmount <  2000) {
         document.getElementById("enter_loan_amount_validation").innerHTML = '<b><span class="required">*Minimum Loan Amount $2000</span></b>';
         document.getElementById("amount_granted").setAttribute('currency', '');
       }
@@ -144,6 +196,15 @@ export default class Step2 extends React.Component {
         amount_granted.setAttribute('currency', amountGranted); 
         let amountValueDisplay = numeral(amountGranted).format('0,0.00000');
         amount_granted.value = amountValueDisplay;
+        //GET APR RATE
+        const APR = this.getAPR(loanAmount, LTV); 
+        document.getElementById("apr_rate").innerHTML = APR + "%";
+        //Monthly PAYMENT
+        const monthlyPayment = APR/1200 * loanAmount;
+        document.getElementById("monthly_payment").innerHTML = "$" + numeral(monthlyPayment).format('0,0.00');
+        //Total Interest
+        const totalInterest = APR/100 * loanAmount * 5;
+        document.getElementById("total_interest").innerHTML = "$" + numeral(totalInterest).format('0,0.00');
       } 
     }  
     handleStep2(e) {
@@ -177,10 +238,13 @@ export default class Step2 extends React.Component {
         else {
           document.getElementById("intended_use_validation").innerHTML = '<b><span class="required">*Please Select an Option</span></b>'
       } 
-      
+      const APR = document.getElementById("apr_rate").innerHTML;
+      const monthlyPayment = document.getElementById("monthly_payment").innerHTML;
+      const totalInterest = document.getElementById("total_interest").innerHTML;
+      const marginCall = document.getElementById("margin_call").innerHTML;
       if(amount_granted_pass && sourceCollateralValueResult && sourceCollateralValueResult && intendedUseValueResult) {
 
-        let step2Array = [cryptoCurrency, loan_amount, amount_granted, LTV, sourceCollateralValue, intendedUseValue];
+        let step2Array = [cryptoCurrency, loan_amount, amount_granted, LTV, sourceCollateralValue, intendedUseValue, APR, monthlyPayment, totalInterest, marginCall];
         this.props.handleForm(step2Array);
         this.props.next();
       }
@@ -236,7 +300,8 @@ export default class Step2 extends React.Component {
                       <div className="col-12 col-sm-6">
                       <p><b>Loan to Value</b></p>
                       <select id="loan_to_value">
-                          <option value=".20">20%</option>
+                          <option value=".15">15%</option>
+                          <option value=".25">25%</option>
                           <option value=".35">35%</option>
                           <option value=".50">50%</option>
                         </select>
@@ -250,23 +315,27 @@ export default class Step2 extends React.Component {
                   </div>
                   <div className="row display-flex">
                       <div className="col-12 col-sm-3">
-                        <div className="box">
+                        <div className="box payments">
                         <p>Monthly Payment</p>
+                        <div id="monthly_payment">&nbsp;</div>
                         </div> 
                       </div>
                       <div className="col-12 col-sm-3">
-                        <div className="box">
+                        <div className="box payments">
                         <p>Total Interest</p>
+                        <div id="total_interest">&nbsp;</div>
                         </div> 
                       </div>
                       <div className="col-12 col-sm-3">
-                        <div className="box">
+                        <div className="box payments">
                         <p>APR*</p>
+                        <div id="apr_rate">&nbsp;</div>
                         </div> 
                       </div>
                       <div className="col-12 col-sm-3">
-                        <div className="box">
+                        <div className="box payments">
                         <p>Margin Call Price</p>
+                        <div id="margin_call">&nbsp;</div>
                         </div> 
                       </div>
                   </div>

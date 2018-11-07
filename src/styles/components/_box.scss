@@ -5,3 +5,6 @@
     @include border-radius(5px);
     border: darken($silver, 15%) 1px solid;
 }
+.box.payments div {
+    text-align: center;
+}
