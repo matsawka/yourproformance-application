@@ -3,6 +3,7 @@ import validator from 'validator';
 import { FaEthereum } from 'react-icons/fa';
 import { FaBitcoin } from 'react-icons/fa';
 import numeral from 'numeral';
+import {Link} from 'react-router-dom';
 
 export default class Step2 extends React.Component {
     constructor(props) {
@@ -386,7 +387,7 @@ export default class Step2 extends React.Component {
                 </div>
                 <button className="button">Continue</button>
               </form>  
-              <p className="smalltext">*All loans are variable rate at Prime + Spread. APR shown reflects Prime at 5.25%. See <a href="" target="_blank">Terms and Conditions</a> for further details.</p>
+              <p className="smalltext">*All loans are variable rate at Prime + Spread. APR shown reflects Prime at 5.25%. See <Link to="/terms-and-conditions" target="_blank">Terms &amp; Conditions</Link> for further details.</p>
             </div>
           </div>
         );

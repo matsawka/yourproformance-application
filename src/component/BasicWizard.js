@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './Header';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
@@ -64,7 +63,6 @@ export default class BasicWizard extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
                 <Step1 
                   currentStep={this.state.currentStep} 
                   next={this.next} 

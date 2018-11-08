@@ -43,7 +43,7 @@ export default class Step4 extends React.Component {
                 </div>
                 <div className="row bottom-row">
                     <div className="col-12 text-center">
-                    <a href="https://www.yourproformance.com/" target="_blank">Return to ProFormance</a>
+                    <a href="https://www.yourproformance.com/">Return to ProFormance</a>
                     </div>
                 </div>
             </div>
