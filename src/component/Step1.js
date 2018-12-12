@@ -2,6 +2,7 @@ import React from 'react';
 import validator from 'validator';
 import { CountryDropdown } from 'react-country-region-selector';
 import SelectUSState from 'react-select-us-states';
+import {Link} from 'react-router-dom';
 
 export default class Step1 extends React.Component {
     constructor(props) {
@@ -130,7 +131,7 @@ export default class Step1 extends React.Component {
                         <div className="col-12">
                         <label>
                             <input type="checkbox" id="over18Checkbox" name="over18Checkbox" value="" />&nbsp;
-                            I certify I am 18 years of age or older, and I agree to the <a target="_blank" href="https://www.residualtoken.com/terms-of-use">Terms &amp; Conditions</a></label>
+                            I certify I am 18 years of age or older, and I agree to the <Link to="/terms-and-conditions" target="_blank">Terms &amp; Conditions</Link></label>
                             </div>
                             
                         </div>
