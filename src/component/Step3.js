@@ -118,7 +118,7 @@ export default class Step3 extends React.Component {
                   lastName: this.props.currentData[1],
                   id: uniqueId
               };
-              emailjs.send(EMAILSERVICE, EMAILTEMPLATE, templateParams, EMAILUSERID)
+              emailjs.send(process.env.EMAILSERVICE, process.env.EMAILTEMPLATE, templateParams, process.env.EMAILUSERID)
                   .then(function(response) {
                      console.log('SUCCESS!', response.status, response.text);
                   }, function(error) {
