@@ -5,6 +5,7 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import firebase from '../firebase/firebase';
 import uuid from 'uuid';
+import * as emailjs from 'emailjs-com';
 
 export default class Step3 extends React.Component {
     constructor(props) {
@@ -111,6 +112,18 @@ export default class Step3 extends React.Component {
                     }
                 });
                 this.props.handleId(uniqueId);
+                //send email
+                var templateParams = {
+                  firstName: this.props.currentData[0],
+                  lastName: this.props.currentData[1],
+                  id: uniqueId
+              };
+              emailjs.send(EMAILSERVICE, EMAILTEMPLATE, templateParams, EMAILUSERID)
+                  .then(function(response) {
+                     console.log('SUCCESS!', response.status, response.text);
+                  }, function(error) {
+                     console.log('FAILED...', error);
+                  });
        this.props.next();
       }
     }
