@@ -80,8 +80,6 @@ export default class Step3 extends React.Component {
         && zipCodeResult 
         && SocialSecuirtyResult 
         && birthDateResults) {
-          //var currentDate = new Date();
-          //var dateString = (currentDate.getMonth() + 1) + "-" + currentDate.getDate() + '-' + currentDate.getFullYear();
           var momentDate = moment().tz('America/New_York').format('MMMM Do YYYY, h:mm:ss a z');
           var db = firebase.firestore();
                // const database  = firebase.database();
