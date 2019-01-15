@@ -1,7 +1,7 @@
 import React from 'react';
 import validator from 'validator';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import 'react-datepicker/dist/react-datepicker.css';
 import firebase from '../firebase/firebase';
 import uuid from 'uuid';
@@ -80,11 +80,15 @@ export default class Step3 extends React.Component {
         && zipCodeResult 
         && SocialSecuirtyResult 
         && birthDateResults) {
+          //var currentDate = new Date();
+          //var dateString = (currentDate.getMonth() + 1) + "-" + currentDate.getDate() + '-' + currentDate.getFullYear();
+          var momentDate = moment().tz('America/New_York').format('MMMM Do YYYY, h:mm:ss a z');
           var db = firebase.firestore();
                // const database  = firebase.database();
                const uniqueId = uuid();
                    
                     var dbCall = db.collection("users").doc(uniqueId).set({
+                    dateApplied: momentDate,  
                     status: 'new',
                     firstName: this.props.currentData[0],
                     lastName: this.props.currentData[1],
@@ -116,7 +120,8 @@ export default class Step3 extends React.Component {
                 var templateParams = {
                   firstName: this.props.currentData[0],
                   lastName: this.props.currentData[1],
-                  id: uniqueId
+                  id: uniqueId,
+                  time: momentDate
               };
               emailjs.send('gmail', 'template_0zcrjEzd', templateParams, 'user_rZcSn8v3aA3gHzjiQBdu6')
                   .then(function(response) {

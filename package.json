@@ -24,6 +24,7 @@
     "extract-text-webpack-plugin": "3.0.0",
     "firebase": "5.5.5",
     "moment": "^2.22.2",
+    "moment-timezone": "^0.5.23",
     "node-sass": "^4.9.3",
     "normalize.css": "7.0.0",
     "numeral": "2.0.6",
