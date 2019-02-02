@@ -138,7 +138,7 @@ export default class Step3 extends React.Component {
 
       // also save to airtable, leav ein firebase for now
       var Airtable = require("airtable");
-      var base = new Airtable({ apiKey: process.env.APIKEYAIRBASE }).base(
+      var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
         "app07QDgAAsXbpFax"
       );
       base("BORROWER").create(

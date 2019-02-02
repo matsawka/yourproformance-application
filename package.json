@@ -41,7 +41,8 @@
     "style-loader": "0.18.2",
     "uuid": "^3.3.2",
     "validator": "8.0.0",
-    "webpack": "3.1.0"
+    "webpack": "3.1.0",
+    "airtable": "0.5.8"
   },
   "devDependencies": {
     "webpack-dev-server": "2.5.1"
