@@ -59,7 +59,7 @@ export default class Step2 extends React.Component {
     const baseSpread = 4.75;
     const addtlAPRFee = 0.45;
     const primeRate = 5.5; // right now its 5.5, need to get dynamically!!
-    APR = baseSpread + addtlAPRFee + primeRate;
+    let APR = baseSpread + addtlAPRFee + primeRate;
 
     // For APR, please use the rates you are using, but can you add (0.45%) to each value, and amend the footnote to say, "This is a variable interest rate loan and the APR shown above is estimated. APR may range from 10% to 18% and will change depending on a number of factors. Please see the loan agreement for the actual APR."
 
@@ -200,6 +200,7 @@ export default class Step2 extends React.Component {
 
     const loan_to_value = document.getElementById("loan_to_value");
 
+    //must make decimal!
     let LTV = loan_to_value.options[loan_to_value.selectedIndex].value;
 
     let etherPrice = document.getElementById("etherHolder").innerHTML;
@@ -220,19 +221,29 @@ export default class Step2 extends React.Component {
         loanAmount
       ).format("0,0.00");
       document.getElementById("enter_loan_amount_validation").innerHTML = "";
+      console.log("LTV:", LTV);
+      const collateralDollars = (1 / LTV) * loanAmount;
+      console.log(
+        "LTV",
+        LTV,
+        "loanAmount",
+        loanAmount,
+        "collateralDollars:",
+        collateralDollars
+      );
 
-      const c = (1 / LTV) * loanAmount;
       var currencyType = this.state.currencyType;
       if (currencyType == "bitcoin") {
-        var amountGranted = c / bitCoinPrice;
+        var amountGranted = collateralDollars / bitCoinPrice;
         var marginCallCurrency = bitCoinPrice;
         currencyType = "btc";
       } else if (currencyType == "ether") {
-        var amountGranted = c / etherPrice;
+        var amountGranted = collateralDollars / etherPrice;
         var marginCallCurrency = etherPrice;
       } else {
         console.log("error in calculation");
       }
+
       const amount_granted = document.getElementById("amount_granted"); // Get the first <h1> element in the document
       amount_granted.setAttribute("currency", amountGranted);
       let amountValueDisplay = numeral(amountGranted).format("0,0.00000");
@@ -240,7 +251,7 @@ export default class Step2 extends React.Component {
 
       //GET APR RATE
       const APR = this.getAPR(loanAmount, LTV);
-
+      console.log("APR:", APR);
       document.getElementById("apr_rate").innerHTML = APR + "%";
 
       //Monthly PAYMENT
@@ -266,7 +277,7 @@ export default class Step2 extends React.Component {
       //Margin Call
 
       const marginCall =
-        loanAmount / (LTV * (loanAmount / LTV / marginCallCurrency));
+        loanAmount / ((1 - LTV) * (loanAmount / LTV / marginCallCurrency));
       document.getElementById("margin_call").innerHTML =
         "$" + numeral(marginCall).format("0,0.00");
     }
