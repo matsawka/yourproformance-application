@@ -137,13 +137,19 @@ export default class Step3 extends React.Component {
       };
 
       // also save to airtable, leav ein firebase for now
+      console.log(
+        "process.env.AIRTABLE_API_KEY:",
+        process.env.AIRTABLE_API_KEY,
+        "process.env.AUTHDOMAIN",
+        process.env.AUTHDOMAIN
+      );
       var Airtable = require("airtable");
+
       var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
         "app07QDgAAsXbpFax"
       );
       base("BORROWER").create(
         {
-          BORR_ID: "BORR_0001",
           LOAN_APP_ID: "",
           BORR_FIRSTNAME: this.props.currentData[0],
           BORR_MI: "",
@@ -159,8 +165,7 @@ export default class Step3 extends React.Component {
           BORR_EMAIL: this.props.currentData[2],
           BORR_ESCROW_YN: "",
           BORR_SSNO: socialSecurity,
-          BORR_DOB: birthDate,
-          LENDER_ID: "WXYZ_012345"
+          BORR_DOB: birthDate
         },
         function(err, record) {
           if (err) {
