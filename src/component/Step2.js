@@ -276,8 +276,7 @@ export default class Step2 extends React.Component {
         "$" + numeral(totalInterest).format("0,0.00");
       //Margin Call
 
-      const marginCall =
-        loanAmount / ((1 - LTV) * (loanAmount / LTV / marginCallCurrency));
+      const marginCall = (1 - (1 - LTV)) * marginCallCurrency;
       document.getElementById("margin_call").innerHTML =
         "$" + numeral(marginCall).format("0,0.00");
     }

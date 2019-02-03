@@ -137,44 +137,44 @@ export default class Step3 extends React.Component {
       };
 
       // also save to airtable, leav ein firebase for now
-      console.log(
-        "process.env.AIRTABLE_API_KEY:",
-        process.env.AIRTABLE_API_KEY,
-        "process.env.AUTHDOMAIN",
-        process.env.AUTHDOMAIN
-      );
+      // console.log(
+      //   "process.env.AIRTABLE_API_KEY:",
+      //   process.env.AIRTABLE_API_KEY,
+      //   "process.env.AUTHDOMAIN",
+      //   process.env.AUTHDOMAIN
+      // );
       var Airtable = require("airtable");
 
-      // var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-      //   "app07QDgAAsXbpFax"
-      // );
-      // base("BORROWER").create(
-      //   {
-      //     LOAN_APP_ID: "",
-      //     BORR_FIRSTNAME: this.props.currentData[0],
-      //     BORR_MI: "",
-      //     BORR_LASTNAME: this.props.currentData[1],
-      //     BORR_SUFFIX: "",
-      //     BORR_STREET: streetAddress,
-      //     BORR_ADDRESS_2: "",
-      //     BORR_CITY: "",
-      //     BORR_STATE: this.props.currentData[5],
-      //     BORR_ZIP: zipCode,
-      //     BORR_COUNTRY: this.props.currentData[4],
-      //     BORR_PHONE_NO: this.props.currentData[3],
-      //     BORR_EMAIL: this.props.currentData[2],
-      //     BORR_ESCROW_YN: "",
-      //     BORR_SSNO: socialSecurity,
-      //     BORR_DOB: birthDate
-      //   },
-      //   function(err, record) {
-      //     if (err) {
-      //       console.error(err);
-      //       return;
-      //     }
-      //     console.log(record.getId());
-      //   }
-      // );
+      var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
+        "app07QDgAAsXbpFax"
+      );
+      base("BORROWER").create(
+        {
+          LOAN_APP_ID: "",
+          BORR_FIRSTNAME: this.props.currentData[0],
+          BORR_MI: "",
+          BORR_LASTNAME: this.props.currentData[1],
+          BORR_SUFFIX: "",
+          BORR_STREET: streetAddress,
+          BORR_ADDRESS_2: "",
+          BORR_CITY: "",
+          BORR_STATE: this.props.currentData[5],
+          BORR_ZIP: zipCode,
+          BORR_COUNTRY: this.props.currentData[4],
+          BORR_PHONE_NO: this.props.currentData[3],
+          BORR_EMAIL: this.props.currentData[2],
+          BORR_ESCROW_YN: "",
+          BORR_SSNO: socialSecurity,
+          BORR_DOB: birthDate
+        },
+        function(err, record) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          console.log(record.getId());
+        }
+      );
 
       emailjs
         .send(
