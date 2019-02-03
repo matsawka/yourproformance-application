@@ -150,6 +150,7 @@ export default class Step3 extends React.Component {
       );
       base("BORROWER").create(
         {
+          LOAN_APP_ID: uniqueId,
           BORR_FIRSTNAME: this.props.currentData[0],
           BORR_MI: "",
           BORR_LASTNAME: this.props.currentData[1],
