@@ -1,9 +1,12 @@
+import "babel-polyfill";
 import React from "react";
 import validator from "validator";
 import { FaEthereum } from "react-icons/fa";
 import { FaBitcoin } from "react-icons/fa";
 import numeral from "numeral";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import cheerio from "cheerio";
 
 export default class Step2 extends React.Component {
   constructor(props) {
@@ -11,6 +14,7 @@ export default class Step2 extends React.Component {
     this.handleBitcoin = this.handleBitcoin.bind(this);
     this.handleEther = this.handleEther.bind(this);
     this.getAPR = this.getAPR.bind(this);
+    this.getPrimeRate = this.getPrimeRate.bind(this);
     this.handleCalculate = this.handleCalculate.bind(this);
     this.handleStep2 = this.handleStep2.bind(this);
     this.selectorChangeC = this.selectorChangeC.bind(this);
@@ -53,12 +57,41 @@ export default class Step2 extends React.Component {
     };
     request.send();
   }
+
+  getPrimeRate() {
+    let htmlData = axios.get(
+      "https://www.bankrate.com/rates/interest-rates/wall-street-prime-rate.aspx"
+    );
+
+    var request = new XMLHttpRequest();
+    request.open(
+      "GET",
+      "https://www.bankrate.com/rates/interest-rates/wall-street-prime-rate.aspx",
+      false
+    ); // `false` makes the request synchronous
+    request.send(null);
+
+    if (request.status === 200) {
+      console.log(request.responseText);
+    }
+
+    console.log("htmlData.data", request.responseText);
+    const h = cheerio.load(request.responseText);
+    console.log("h", h);
+    let primert = h(
+      "div.editorial.--push-down > main > div.story__content > table > tbody > tr > td:nth-child(2)"
+    ).text();
+    console.log("primert3:", primert);
+    return Number(primert);
+  }
+
   getAPR(loanAmount, LTV) {
     const myLoanAmount = loanAmount;
     const myLTV = LTV;
     const baseSpread = 4.75;
     const addtlAPRFee = 0.45;
-    const primeRate = 5.5; // right now its 5.5, need to get dynamically!!
+    const primeRate = this.getPrimeRate(); // right now its 5.5, need to get dynamically!!
+    console.log("primeRate:::", primeRate);
     let APR = baseSpread + addtlAPRFee + primeRate;
 
     // For APR, please use the rates you are using, but can you add (0.45%) to each value, and amend the footnote to say, "This is a variable interest rate loan and the APR shown above is estimated. APR may range from 10% to 18% and will change depending on a number of factors. Please see the loan agreement for the actual APR."

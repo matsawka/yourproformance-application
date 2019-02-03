@@ -42,7 +42,9 @@
     "uuid": "^3.3.2",
     "validator": "8.0.0",
     "webpack": "3.1.0",
-    "airtable": "0.5.8"
+    "airtable": "0.5.8",
+    "axios": "^0.18.0",
+    "cheerio": "1.0.0-rc.2"
   },
   "devDependencies": {
     "webpack-dev-server": "2.5.1"
