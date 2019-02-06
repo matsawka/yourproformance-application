@@ -213,7 +213,7 @@ export default class Step3 extends React.Component {
         }
       );
 
-      /*emailjs
+      emailjs
         .send(
           "gmail",
           "template_0zcrjEzd",
@@ -227,7 +227,7 @@ export default class Step3 extends React.Component {
           function(error) {
             console.log("FAILED...", error);
           }
-        );*/
+        );
       this.props.next();
     }
   }
