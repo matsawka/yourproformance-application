@@ -391,7 +391,7 @@ export default class Step2 extends React.Component {
         escrowValue
       ];
       this.props.handleForm(step2Array);
-      //this.props.next();
+      this.props.next();
     }
   }
   render(props) {
