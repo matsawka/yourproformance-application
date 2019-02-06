@@ -30,11 +30,11 @@ export default class Step4 extends React.Component {
                      <div className="col-12 col-sm-6">
                       <div className="box">
                             <b>Loan Amount</b><br/>
-                            <i><span id="loanAmount">${this.props.currentData[7]}</span></i>
+                            <i><span id="loanAmount">${this.props.currentData[8]}</span></i>
                       </div>
                       <div className="box">
                             <b>Collateral Amount</b><br/>
-                            <i><span id="currencyType">{this.props.currentData[6]}</span>: <span id="collateralAmount">{this.props.currentData[8]}</span></i>
+                            <i><span id="currencyType">{this.props.currentData[7]}</span>: <span id="collateralAmount">{this.props.currentData[9]}</span></i>
                       </div>
                       <b>Submitted:</b><br/><i>{moment().format('MMMM Do YYYY, h:mm a')}</i><br/>
                       <b>Loan Request ID:</b><br/><i>{this.props.uniqueId}</i>

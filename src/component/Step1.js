@@ -35,6 +35,7 @@ export default class Step1 extends React.Component {
         
         //get values from form
         const firstName = e.target.elements.firstName.value.trim();
+        const middleInitial = e.target.elements.middleInitial.value.trim();
         const lastName = e.target.elements.lastName.value.trim();
         const email = e.target.elements.email.value.trim();
         let phoneNumber = e.target.elements.phoneNumber.value.trim();
@@ -78,7 +79,7 @@ export default class Step1 extends React.Component {
             this.state.country &&
             over18Checkboxchecked)
             {
-                let step1Array = [firstName, lastName, email, phoneNumber, this.state.country, this.state.us_state];
+                let step1Array = [firstName, lastName, email, phoneNumber, this.state.country, this.state.us_state, middleInitial];
                 this.props.handleForm(step1Array)
                 this.props.next();
         }
@@ -94,11 +95,14 @@ export default class Step1 extends React.Component {
                 <div className="container">
                     <form onSubmit={this.onFormSubmit}>
                         <div className="row">
-                            <div className="col-12 col-sm-6">
+                            <div className="col-12 col-sm-5">
                             <b><label id="firstName_validation"><span className="required">*</span>First Name:</label></b><br/>
                             <input className="add-option__input" type="text" name="firstName"/>
                             </div>
-                            
+                            <div className="col-12 col-sm-1">
+                            <b><label>Initial</label></b><br/>
+                            <input className="add-option__input" type="text" name="middleInitial" maxLength="1"/>
+                            </div>
                             <div className="col-12 col-sm-6">
                             <b><label id="lastName_validation"><span className="required">*</span>Last Name:</label></b><br/>
                             <input className="add-option__input" type="text" name="lastName"/>
