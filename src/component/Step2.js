@@ -21,6 +21,7 @@ export default class Step2 extends React.Component {
     this.selectorChangeI = this.selectorChangeI.bind(this);
     this.getbitCoinValue = this.getbitCoinValue.bind(this);
     this.clearBoxes = this.clearBoxes.bind(this);
+    this.checkEscrow = this.checkEscrow.bind(this);
     this.state = {
       currencyType: "bitcoin"
     };
@@ -202,6 +203,17 @@ export default class Step2 extends React.Component {
     document.getElementById("total_interest").innerHTML = "&nbsp;";
     document.getElementById("margin_call").innerHTML = "&nbsp;";
   }
+  checkEscrow(loanAmount) {
+    console.log('checkE');
+    if (loanAmount >= 100000) {
+      document.getElementById("escrowDiv").classList.add("displayBlock");
+      document.getElementById("escrowDiv").classList.remove("displayNone");
+    }
+    else {
+      document.getElementById("escrowDiv").classList.add("displayNone");
+      document.getElementById("escrowDiv").classList.remove("displayBlock");
+    }
+  }
   selectorChangeC() {
     const sourceCollateral = document.getElementById("source_collateral");
     var sourceCollateralValue =
@@ -224,13 +236,13 @@ export default class Step2 extends React.Component {
     }
   }
   handleCalculate(e) {
-    e.preventDefault();
+    e.preventDefault(); 
     let loanAmount = document.getElementById("enter_loan_amount").value.trim();
     const regexp = "^d+(.d{1,2})?$";
     loanAmount = loanAmount.replace(regexp, "");
     loanAmount = loanAmount.replace(/[,]+/g, ""); //remove commas
     loanAmount = parseFloat(loanAmount).toFixed(2); //make loan amount .XX
-
+    
     const loan_to_value = document.getElementById("loan_to_value");
 
     //must make decimal!
@@ -240,7 +252,8 @@ export default class Step2 extends React.Component {
     etherPrice = parseFloat(etherPrice.replace(/,/g, ""));
     let bitCoinPrice = document.getElementById("bitCoinHolder").innerHTML;
     bitCoinPrice = parseFloat(bitCoinPrice.replace(/,/g, ""));
-
+    // get escrow checkbox:
+    this.checkEscrow(loanAmount);
     if (!validator.isDecimal(loanAmount)) {
       document.getElementById("enter_loan_amount_validation").innerHTML =
         '<b><span class="required">*Please Enter a Number</span></b>';
@@ -249,7 +262,8 @@ export default class Step2 extends React.Component {
       document.getElementById("enter_loan_amount_validation").innerHTML =
         '<b><span class="required">*Minimum Loan Amount $2000</span></b>';
       document.getElementById("amount_granted").setAttribute("currency", "");
-    } else {
+    } 
+    else {
       document.getElementById("enter_loan_amount").value = numeral(
         loanAmount
       ).format("0,0.00");
@@ -355,6 +369,8 @@ export default class Step2 extends React.Component {
     const monthlyPayment = document.getElementById("monthly_payment").innerHTML;
     const totalInterest = document.getElementById("total_interest").innerHTML;
     const marginCall = document.getElementById("margin_call").innerHTML;
+    const escrowValue = document.getElementById('escrowService').checked;
+    
     if (
       amount_granted_pass &&
       sourceCollateralValueResult &&
@@ -371,10 +387,11 @@ export default class Step2 extends React.Component {
         APR,
         monthlyPayment,
         totalInterest,
-        marginCall
+        marginCall,
+        escrowValue
       ];
       this.props.handleForm(step2Array);
-      this.props.next();
+      //this.props.next();
     }
   }
   render(props) {
@@ -470,6 +487,11 @@ export default class Step2 extends React.Component {
                   <option value=".50">50%</option>
                 </select>
                 <label id="loan_to_value_validation" />
+              </div>
+              <div className="displayNone col-sm-6" id="escrowDiv">
+              <label>
+              <input type="checkbox" id="escrowService" name="escrowService" value="" />&nbsp;
+              Would you prefer escrow services?</label>
               </div>
             </div>
             <div className="row">

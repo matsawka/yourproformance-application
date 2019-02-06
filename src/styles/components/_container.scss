@@ -35,3 +35,13 @@ button:focus {
 form {
     margin-bottom: $m-size;
 }
+#escrowDiv:after {
+content: "";
+  display: inline-block;
+  height: 100%;            /* Let it be as height as the parent */
+  vertical-align: bottom;
+}
+#escrowDiv label {
+    vertical-align: bottom;
+    margin-bottom:0;
+}
