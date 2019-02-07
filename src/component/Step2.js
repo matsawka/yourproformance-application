@@ -28,13 +28,12 @@ export default class Step2 extends React.Component {
   }
   getbitCoinValue() {
     let request = new XMLHttpRequest();
-    request.open("GET", "https://api.coinmarketcap.com/v2/ticker/1/", true);
+    request.open("GET", "https://api.coinbase.com/v2/prices/BTC-USD/spot?currency=USD", true);
     request.onload = function() {
       // Begin accessing JSON data here
       let data = JSON.parse(this.response);
       if (request.status >= 200 && request.status < 400) {
-        let bitCoinPrice = data.data.quotes.USD.price.toFixed(2);
-        bitCoinPrice = numeral(bitCoinPrice).format("0,0.00");
+        let bitCoinPrice = data.data.amount;
         document.getElementById("bitCoinHolder").innerHTML = bitCoinPrice;
       } else {
         console.log("error");
@@ -44,13 +43,12 @@ export default class Step2 extends React.Component {
   }
   getEtherValue() {
     let request = new XMLHttpRequest();
-    request.open("GET", "https://api.coinmarketcap.com/v2/ticker/1027/", true);
+    request.open("GET", "https://api.coinbase.com/v2/prices/ETH-USD/spot?currency=USD", true);
     request.onload = function() {
       // Begin accessing JSON data here
       let data = JSON.parse(this.response);
       if (request.status >= 200 && request.status < 400) {
-        let etherPrice = data.data.quotes.USD.price.toFixed(2);
-        etherPrice = numeral(etherPrice).format("0,0.00");
+        let etherPrice = data.data.amount;
         document.getElementById("etherHolder").innerHTML = etherPrice;
       } else {
         console.log("error");
