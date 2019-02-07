@@ -420,7 +420,7 @@ export default class Step2 extends React.Component {
           <form onSubmit={this.handleStep2}>
             <div className="row">
               <div className="add-option__div col-12 text-center">
-                WHAT KIND OF CRYTOASSET WILL YOU USE AS COLLATERAL?
+                WHAT KIND OF CRYPTOASSET WILL YOU USE AS COLLATERAL?
               </div>
             </div>
             <div className="row">
@@ -558,8 +558,8 @@ export default class Step2 extends React.Component {
                   <option value="Purchase Traditional Investments">
                     Purchase Traditional Investments
                   </option>
-                  <option value="Purchase More Crytoassets">
-                    Purchase More Crytoassets
+                  <option value="Purchase More Cryptoassets">
+                    Purchase More Cryptoassets
                   </option>
                   <option value="Start a Business">Start a Business</option>
                   <option value="Pay Down Debt">Pay Down Debt</option>
