@@ -165,13 +165,13 @@ export default class Step2 extends React.Component {
       .classList.add("button__cyrpto__unselected");
     document
       .getElementById("button__ether")
-      .classList.remove("button__cypto__selected");
+      .classList.remove("button__crypto__selected");
     document
       .getElementById("button__bitcoin")
       .classList.remove("button__cyrpto__unselected");
     document
       .getElementById("button__bitcoin")
-      .classList.add("button__cypto__selected");
+      .classList.add("button__crypto__selected");
     document.getElementById("amount_granted").value = "";
     document.getElementById("amount_granted").placeholder = "0.00000";
     this.clearBoxes();
@@ -186,13 +186,13 @@ export default class Step2 extends React.Component {
       .classList.remove("button__cyrpto__unselected");
     document
       .getElementById("button__ether")
-      .classList.add("button__cypto__selected");
+      .classList.add("button__crypto__selected");
     document
       .getElementById("button__bitcoin")
       .classList.add("button__cyrpto__unselected");
     document
       .getElementById("button__bitcoin")
-      .classList.remove("button__cypto__selected");
+      .classList.remove("button__crypto__selected");
     document.getElementById("amount_granted").value = "";
     document.getElementById("amount_granted").placeholder = "0.00000";
     this.clearBoxes();
@@ -331,7 +331,7 @@ export default class Step2 extends React.Component {
   handleStep2(e) {
     e.preventDefault();
     let cryptoCurrency = document.getElementsByClassName(
-      "button__cypto__selected"
+      "button__crypto__selected"
     )[0].id;
     let amount_granted = document
       .getElementById("amount_granted")
@@ -427,7 +427,7 @@ export default class Step2 extends React.Component {
               <div className="col-12 col-sm-6">
                 <button
                   onClick={this.handleBitcoin}
-                  className="button button__crypto button__cypto__selected"
+                  className="button button__crypto button__crypto__selected"
                   id="button__bitcoin"
                 >
                   <FaBitcoin />
@@ -540,7 +540,7 @@ export default class Step2 extends React.Component {
                   </option>
                   <option value="Business Revenue">Business Revenue</option>
                   <option value="Personal Savings">Personal Savings</option>
-                  <option value="Cypto Mining">Cypto Mining</option>
+                  <option value="Crypto Mining">Crypto Mining</option>
                   <option value="Company ICO">Company ICO</option>
                   <option value="Other">Other</option>
                 </select>
