@@ -2,9 +2,6 @@ import React from 'react'
 import moment from 'moment';
 import { IoIosPrint } from 'react-icons/io';
 
-
-
-
 export default class Step4 extends React.Component {
     constructor(props) {
         super(props);

@@ -1,11 +1,6 @@
 import React from 'react';
 
-
-export default class Terms extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-     render() {
+const Terms = () => {
         return (
             <div>
             <h2 className="subheader">PERSONAL LOANS</h2>
@@ -14,5 +9,7 @@ export default class Terms extends React.Component {
              </div>
         </div>
       );
-    }
+    
    }
+
+export default Terms;

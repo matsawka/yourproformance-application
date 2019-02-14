@@ -12,7 +12,6 @@ export default class Step3 extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.giveMeValue = this.giveMeValue.bind(this);
     this.state = {
       startDate: moment()
     };
@@ -22,10 +21,6 @@ export default class Step3 extends React.Component {
     this.setState({
       startDate: date
     });
-  }
-
-  giveMeValue(value) {
-    console.log("giveMeValue", value);
   }
   onFormSubmit(e) {
     e.preventDefault(e);
