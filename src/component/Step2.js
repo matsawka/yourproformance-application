@@ -23,7 +23,11 @@ export default class Step2 extends React.Component {
     this.clearBoxes = this.clearBoxes.bind(this);
     this.checkEscrow = this.checkEscrow.bind(this);
     this.state = {
-      currencyType: "bitcoin"
+      currencyType: "bitcoin",
+      margin: "",
+      rate: "",
+      primeRate: "",
+      APR: ""
     };
   }
   getbitCoinValue() {
@@ -90,6 +94,7 @@ export default class Step2 extends React.Component {
     const baseSpread = 4.75;
     const addtlAPRFee = 0.45;
     const primeRate = this.getPrimeRate(); // right now its 5.5, need to get dynamically!!
+    
     console.log("primeRate:::", primeRate);
     let APR = baseSpread + addtlAPRFee + primeRate;
 
@@ -151,6 +156,20 @@ export default class Step2 extends React.Component {
     }
     console.log("APR", APR, " riskSpreadInterest", riskSpreadInterest);
     APR = APR + riskSpreadInterest;
+
+    const margin = (baseSpread + riskSpreadInterest );
+    const rate = (baseSpread + riskSpreadInterest + primeRate);
+    console.log(`primeRate: ${primeRate}`)
+    console.log(`rate: ${rate}`)
+    console.log(`margin: ${margin}`)
+    this.setState({
+      margin: margin,
+      rate: rate,
+      primeRate: primeRate,
+      APR: APR
+    });
+
+
     return APR;
   }
   handleBitcoin(e) {
@@ -363,12 +382,11 @@ export default class Step2 extends React.Component {
       document.getElementById("intended_use_validation").innerHTML =
         '<b><span class="required">*Please Select an Option</span></b>';
     }
-    const APR = document.getElementById("apr_rate").innerHTML;
+    //const APR = document.getElementById("apr_rate").innerHTML;
     const monthlyPayment = document.getElementById("monthly_payment").innerHTML;
     const totalInterest = document.getElementById("total_interest").innerHTML;
     const marginCall = document.getElementById("margin_call").innerHTML;
     const escrowValue = document.getElementById('escrowService').checked;
-    
     if (
       amount_granted_pass &&
       sourceCollateralValueResult &&
@@ -382,14 +400,18 @@ export default class Step2 extends React.Component {
         LTV,
         sourceCollateralValue,
         intendedUseValue,
-        APR,
+        this.state.APR,
         monthlyPayment,
         totalInterest,
         marginCall,
-        escrowValue
+        escrowValue,
+        this.state.margin,
+        this.state.rate,
+        this.state.primeRate
       ];
       this.props.handleForm(step2Array);
-      this.props.next();
+      console.log(step2Array);
+        this.props.next();
     }
   }
   render(props) {

@@ -16,7 +16,7 @@ export default class Step3 extends React.Component {
       startDate: moment()
     };
   }
-
+  
   handleChange(date) {
     this.setState({
       startDate: date
@@ -132,7 +132,10 @@ export default class Step3 extends React.Component {
             monthlyPayment: this.props.currentData[14],
             totalInterest: this.props.currentData[15],
             marginCall: this.props.currentData[16],
-            escrowValue: this.props.currentData[17]
+            escrowValue: this.props.currentData[17],
+            margin: this.props.currentData[18],
+            rate: this.props.currentData[19],
+            prime: this.props.currentData[20]
           }
         });
       this.props.handleId(uniqueId);
@@ -196,8 +199,11 @@ export default class Step3 extends React.Component {
           APR: this.props.currentData[13],
           PMT_MONTHLY: this.props.currentData[14],
           TOTAL_INTEREST: this.props.currentData[15],
-          MARGIN: this.props.currentData[16],
-          ESCROW_SERVICE: this.props.currentData[17]
+          COLL_PRICE: this.props.currentData[16],
+          ESCROW_SERVICE: this.props.currentData[17],
+          MARGIN: this.props.currentData[18],
+          RATE: this.props.currentData[19],
+          PRIME: this.props.currentData[20]
         },
         function(err, record) {
           if (err) {
