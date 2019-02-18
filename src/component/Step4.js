@@ -19,9 +19,9 @@ export default class Step4 extends React.Component {
                 <div className="row">
                     <div className="col-12 col-sm-6">
                         <h2 id="firstName">{this.props.currentData[0]}</h2>
-                        <p>We have received your loan application</p>
+                        <p>We have received your loan application.</p>
                         <p>We are reviewing your application at the moment, and will have an update within one business day.</p>
-                        <p>Have any questions? <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Email us </a></p>
+                        <p>Have any questions? <a href="mailto:info@yourproformance.com?subject=Questions about YourFormance Loan" target="_top">Email us </a></p>
                         <a className="social__print" href="javascript:window.print()">
                             <IoIosPrint/>
                         </a>
