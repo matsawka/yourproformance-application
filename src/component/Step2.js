@@ -8,12 +8,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import cheerio from "cheerio";
 
+const addtlAPRFee = 0.45;
+
 export default class Step2 extends React.Component {
   constructor(props) {
     super(props);
     this.handleBitcoin = this.handleBitcoin.bind(this);
     this.handleEther = this.handleEther.bind(this);
-    this.getAPR = this.getAPR.bind(this);
+    this.getRates = this.getRates.bind(this);
     this.getPrimeRate = this.getPrimeRate.bind(this);
     this.handleCalculate = this.handleCalculate.bind(this);
     this.handleStep2 = this.handleStep2.bind(this);
@@ -32,7 +34,11 @@ export default class Step2 extends React.Component {
   }
   getbitCoinValue() {
     let request = new XMLHttpRequest();
-    request.open("GET", "https://api.coinbase.com/v2/prices/BTC-USD/spot?currency=USD", true);
+    request.open(
+      "GET",
+      "https://api.coinbase.com/v2/prices/BTC-USD/spot?currency=USD",
+      true
+    );
     request.onload = function() {
       // Begin accessing JSON data here
       let data = JSON.parse(this.response);
@@ -47,7 +53,11 @@ export default class Step2 extends React.Component {
   }
   getEtherValue() {
     let request = new XMLHttpRequest();
-    request.open("GET", "https://api.coinbase.com/v2/prices/ETH-USD/spot?currency=USD", true);
+    request.open(
+      "GET",
+      "https://api.coinbase.com/v2/prices/ETH-USD/spot?currency=USD",
+      true
+    );
     request.onload = function() {
       // Begin accessing JSON data here
       let data = JSON.parse(this.response);
@@ -88,15 +98,15 @@ export default class Step2 extends React.Component {
     return Number(primert);
   }
 
-  getAPR(loanAmount, LTV) {
+  getRates(loanAmount, LTV) {
     const myLoanAmount = loanAmount;
     const myLTV = LTV;
-    const baseSpread = 4.75;
-    const addtlAPRFee = 0.45;
+    const baseSpread = 4.5;
+
     const primeRate = this.getPrimeRate(); // right now its 5.5, need to get dynamically!!
-    
+
     console.log("primeRate:::", primeRate);
-    let APR = baseSpread + addtlAPRFee + primeRate;
+    let rate = baseSpread + primeRate;
 
     // For APR, please use the rates you are using, but can you add (0.45%) to each value, and amend the footnote to say, "This is a variable interest rate loan and the APR shown above is estimated. APR may range from 10% to 18% and will change depending on a number of factors. Please see the loan agreement for the actual APR."
 
@@ -155,13 +165,16 @@ export default class Step2 extends React.Component {
         break;
     }
     console.log("APR", APR, " riskSpreadInterest", riskSpreadInterest);
-    APR = APR + riskSpreadInterest;
+    rate = rate + riskSpreadInterest;
 
-    const margin = (baseSpread + riskSpreadInterest );
-    const rate = (baseSpread + riskSpreadInterest + primeRate);
-    console.log(`primeRate: ${primeRate}`)
-    console.log(`rate: ${rate}`)
-    console.log(`margin: ${margin}`)
+    const margin = baseSpread + riskSpreadInterest;
+
+    const APR = rate + addtlAPRFee;
+
+    console.log(`primeRate: ${primeRate}`);
+    console.log(`rate: ${rate}`);
+    console.log(`margin: ${margin}`);
+    console.log(`APR: ${APR}`);
     this.setState({
       margin: margin,
       rate: rate,
@@ -169,9 +182,9 @@ export default class Step2 extends React.Component {
       APR: APR
     });
 
-
-    return APR;
+    return { rate, APR, primeRate, margin };
   }
+
   handleBitcoin(e) {
     e.preventDefault();
     this.setState({
@@ -221,12 +234,11 @@ export default class Step2 extends React.Component {
     document.getElementById("margin_call").innerHTML = "&nbsp;";
   }
   checkEscrow(loanAmount) {
-    console.log('checkE');
+    console.log("checkE");
     if (loanAmount >= 100000) {
       document.getElementById("escrowDiv").classList.add("displayBlock");
       document.getElementById("escrowDiv").classList.remove("displayNone");
-    }
-    else {
+    } else {
       document.getElementById("escrowDiv").classList.add("displayNone");
       document.getElementById("escrowDiv").classList.remove("displayBlock");
     }
@@ -253,13 +265,13 @@ export default class Step2 extends React.Component {
     }
   }
   handleCalculate(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     let loanAmount = document.getElementById("enter_loan_amount").value.trim();
     const regexp = "^d+(.d{1,2})?$";
     loanAmount = loanAmount.replace(regexp, "");
     loanAmount = loanAmount.replace(/[,]+/g, ""); //remove commas
     loanAmount = parseFloat(loanAmount).toFixed(2); //make loan amount .XX
-    
+
     const loan_to_value = document.getElementById("loan_to_value");
 
     //must make decimal!
@@ -279,8 +291,7 @@ export default class Step2 extends React.Component {
       document.getElementById("enter_loan_amount_validation").innerHTML =
         '<b><span class="required">*Minimum Loan Amount $2000</span></b>';
       document.getElementById("amount_granted").setAttribute("currency", "");
-    } 
-    else {
+    } else {
       document.getElementById("enter_loan_amount").value = numeral(
         loanAmount
       ).format("0,0.00");
@@ -314,33 +325,45 @@ export default class Step2 extends React.Component {
       amount_granted.value = amountValueDisplay;
 
       //GET APR RATE
-      const APR = this.getAPR(loanAmount, LTV);
+      const rates = this.getRates(loanAmount, LTV);
+      const rate = rates.rate;
+      const APR = rates.APR;
       console.log("APR:", APR);
       document.getElementById("apr_rate").innerHTML = APR + "%";
 
       //Monthly PAYMENT
-      const monthlyPayment = (APR / 1200) * loanAmount;
+      const monthlyPayment = (rate / 1200) * loanAmount;
       document.getElementById("monthly_payment").innerHTML =
         "$" + numeral(monthlyPayment).format("0,0.00");
 
       //Total Interest
       // $200 plus (Loan Amount/LTV x 0.30%)
       const yearsOfLoan = 5;
-      let totalInterest = (APR / 100) * loanAmount * yearsOfLoan;
+      console.log(
+        "loanAmount:",
+        loanAmount,
+        "rate",
+        rate,
+        "calc",
+        rate / 100,
+        "years",
+        yearsOfLoan
+      );
+      let totalInterest = loanAmount * (rate / 100) * yearsOfLoan;
 
       //add in extra fees associated with loan. howard can breakdown formula, what is business name
       // for $200 fee?
       totalInterest = totalInterest + 200;
 
       //what is business name for additionalFee here?
-      const collateralDispositionFee = (loanAmount / LTV) * 0.3;
+      const collateralDispositionFee = collateralDollars * 0.003;
       totalInterest = totalInterest + collateralDispositionFee;
 
       document.getElementById("total_interest").innerHTML =
         "$" + numeral(totalInterest).format("0,0.00");
       //Margin Call
 
-      const marginCall = (1 - (1 - LTV)) * marginCallCurrency;
+      const marginCall = loanAmount / 0.6 / amountGranted;
       document.getElementById("margin_call").innerHTML =
         "$" + numeral(marginCall).format("0,0.00");
     }
@@ -386,7 +409,7 @@ export default class Step2 extends React.Component {
     const monthlyPayment = document.getElementById("monthly_payment").innerHTML;
     const totalInterest = document.getElementById("total_interest").innerHTML;
     const marginCall = document.getElementById("margin_call").innerHTML;
-    const escrowValue = document.getElementById('escrowService').checked;
+    const escrowValue = document.getElementById("escrowService").checked;
     if (
       amount_granted_pass &&
       sourceCollateralValueResult &&
@@ -411,7 +434,7 @@ export default class Step2 extends React.Component {
       ];
       this.props.handleForm(step2Array);
       console.log(step2Array);
-        this.props.next();
+      this.props.next();
     }
   }
   render(props) {
@@ -509,9 +532,15 @@ export default class Step2 extends React.Component {
                 <label id="loan_to_value_validation" />
               </div>
               <div className="displayNone col-sm-6" id="escrowDiv">
-              <label>
-              <input type="checkbox" id="escrowService" name="escrowService" value="" />&nbsp;
-              Would you prefer escrow services?</label>
+                <label>
+                  <input
+                    type="checkbox"
+                    id="escrowService"
+                    name="escrowService"
+                    value=""
+                  />
+                  &nbsp; Would you prefer escrow services?
+                </label>
               </div>
             </div>
             <div className="row">
@@ -530,7 +559,7 @@ export default class Step2 extends React.Component {
               </div>
               <div className="col-12 col-sm-3">
                 <div className="box payments">
-                  <p>Total Interest</p>
+                  <p>Total Financing Charge</p>
                   <div id="total_interest">&nbsp;</div>
                 </div>
               </div>
