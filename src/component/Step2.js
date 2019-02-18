@@ -383,7 +383,7 @@ export default class Step2 extends React.Component {
 
     if (amount_granted != null && amount_granted != "") {
       var amount_granted_pass = true;
-      amount_granted = numeral(amount_granted).format("0,0.00");
+      amount_granted = numeral(amount_granted).format("0,0.00000");
     } else {
       document.getElementById("enter_loan_amount_validation").innerHTML =
         '<b><span class="required">*Please Enter a Number</span></b>';

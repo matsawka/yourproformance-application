@@ -19,8 +19,8 @@ export default class Step4 extends React.Component {
                 <div className="row">
                     <div className="col-12 col-sm-6">
                         <h2 id="firstName">{this.props.currentData[0]}</h2>
-                        <p>We've recieved your loan application</p>
-                        <p>We've reviewing your application at the moment, and will have an update within one business day.</p>
+                        <p>We have received your loan application</p>
+                        <p>We are reviewing your application at the moment, and will have an update within one business day.</p>
                         <p>Have any questions? <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Email us </a></p>
                         <a className="social__print" href="javascript:window.print()">
                             <IoIosPrint/>
@@ -35,7 +35,7 @@ export default class Step4 extends React.Component {
                       </div>
                       <div className="box">
                             <b>Collateral Amount</b><br/>
-                            <i><span id="currencyType">{this.props.currentData[8]}</span>: <span id="collateralAmount">{numeral(this.props.currentData[10]).format("0,0.00")}</span></i>
+                            <i><span id="currencyType">{this.props.currentData[8]}</span>: <span id="collateralAmount">{numeral(this.props.currentData[10]).format("0,0.00000")}</span></i>
                       </div>
                       <b>Submitted:</b><br/><i>{moment().format('MMMM Do YYYY, h:mm a')}</i><br/>
                       <b>Loan Request ID:</b><br/><i>{this.props.uniqueId}</i>
