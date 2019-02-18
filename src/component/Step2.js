@@ -406,10 +406,23 @@ export default class Step2 extends React.Component {
         '<b><span class="required">*Please Select an Option</span></b>';
     }
     //const APR = document.getElementById("apr_rate").innerHTML;
-    const monthlyPayment = document.getElementById("monthly_payment").innerHTML;
-    const totalInterest = document.getElementById("total_interest").innerHTML;
-    const marginCall = document.getElementById("margin_call").innerHTML;
-    const escrowValue = document.getElementById("escrowService").checked;
+    //const APR = document.getElementById("apr_rate").innerHTML;
+    let monthlyPayment = document.getElementById("monthly_payment").innerHTML;
+    monthlyPayment = monthlyPayment.replace(/,/g, '');
+    monthlyPayment = parseFloat(monthlyPayment.replace(/\$/g, ''));
+    let totalInterest = document.getElementById("total_interest").innerHTML;
+    totalInterest = totalInterest.replace(/,/g, '');
+    totalInterest = parseFloat(totalInterest.replace(/\$/g, ''));
+    let marginCall = document.getElementById("margin_call").innerHTML;
+    marginCall = marginCall.replace(/,/g, '');
+    marginCall = parseFloat(marginCall.replace(/\$/g, ''));
+    loan_amount = loan_amount.replace(/,/g, '');
+    loan_amount = parseFloat(loan_amount.replace(/\$/g, ''));
+    const escrowValue = document.getElementById('escrowService').checked;
+    amount_granted = amount_granted.replace(/,/g, '');
+    amount_granted = parseFloat(amount_granted.replace(/\$/g, ''));
+    console.log('amount_granted step2: ' + amount_granted);
+    LTV = parseFloat(LTV);
     if (
       amount_granted_pass &&
       sourceCollateralValueResult &&

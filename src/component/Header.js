@@ -12,10 +12,10 @@ const Header = (props) => (
                     <a href="https://www.yourproformance.com/" target="_blank"><img src="/images/logo.png"/></a>
                 </div>
                 <div className="header__social col-sm-4">
-                    <a className="social__email" href="mailto:howard@residualtoken.com?subject=Questions about YourFormance Loan"><IoIosMail/></a>
+                    <a className="social__email" href="mailto:info@yourproformance.com?subject=Questions about YourFormance Loan"><IoIosMail/></a>
                     {/*<a className="social__email" href=""><IoIosSend/></a>*/}
-                    <a className="social__linkedin" href=""><FaLinkedin/></a>
-                    <a className="social__twitter" href=""><FaTwitter/></a>
+                    <a className="social__linkedin" href="https://www.linkedin.com/company/residualtoken/"><FaLinkedin/></a>
+                    <a className="social__twitter" href="http://twitter.com/residualtokens"><FaTwitter/></a>
                 </div>
             </div>
         </div>

@@ -100,15 +100,7 @@ export default class Step1 extends React.Component {
       this.state.country &&
       over18Checkboxchecked
     ) {
-      let step1Array = [
-        firstName,
-        lastName,
-        email,
-        phoneNumber,
-        this.state.country,
-        this.state.us_state,
-        middleInitial
-      ];
+    let step1Array = [firstName, lastName, email, phoneNumber, this.state.country, this.state.us_state, middleInitial, over18Checkboxchecked];
       this.props.handleForm(step1Array);
       this.props.next();
     }

@@ -1,11 +1,13 @@
 import React from 'react'
 import moment from 'moment';
 import { IoIosPrint } from 'react-icons/io';
+import numeral from "numeral";
 
 export default class Step4 extends React.Component {
     constructor(props) {
         super(props);
     }
+    //let loan_amount = numeral(this.props.currentData[9]).format("0,0.00");
     render(props) {
       if (this.props.currentStep !== 4) {
         return null;
@@ -27,11 +29,13 @@ export default class Step4 extends React.Component {
                      <div className="col-12 col-sm-6">
                       <div className="box">
                             <b>Loan Amount</b><br/>
-                            <i><span id="loanAmount">${this.props.currentData[8]}</span></i>
+                            <i><span id="loanAmount">
+                            ${numeral(this.props.currentData[9]).format("0,0.00")}
+                            </span></i>
                       </div>
                       <div className="box">
                             <b>Collateral Amount</b><br/>
-                            <i><span id="currencyType">{this.props.currentData[7]}</span>: <span id="collateralAmount">{this.props.currentData[9]}</span></i>
+                            <i><span id="currencyType">{this.props.currentData[8]}</span>: <span id="collateralAmount">{numeral(this.props.currentData[10]).format("0,0.00")}</span></i>
                       </div>
                       <b>Submitted:</b><br/><i>{moment().format('MMMM Do YYYY, h:mm a')}</i><br/>
                       <b>Loan Request ID:</b><br/><i>{this.props.uniqueId}</i>
@@ -48,4 +52,6 @@ export default class Step4 extends React.Component {
       );
   }
 }
+
+
 

@@ -113,6 +113,7 @@ export default class Step3 extends React.Component {
           phoneNumber: this.props.currentData[3],
           dateOfBirth: birthDate,
           socialSecurity: socialSecurity,
+          agreeTerms: this.props.currentData[7],
           location: {
             street: streetAddress,
             street2: streetAddress2,
@@ -122,20 +123,20 @@ export default class Step3 extends React.Component {
             zip: zipCode
           },
           loan: {
-            currencyType: this.props.currentData[7],
-            loanAmoun: this.props.currentData[8],
-            collateral: this.props.currentData[9],
-            LTV: this.props.currentData[10],
-            source: this.props.currentData[11],
-            intended: this.props.currentData[12],
-            apr: this.props.currentData[13],
-            monthlyPayment: this.props.currentData[14],
-            totalInterest: this.props.currentData[15],
-            marginCall: this.props.currentData[16],
-            escrowValue: this.props.currentData[17],
-            margin: this.props.currentData[18],
-            rate: this.props.currentData[19],
-            prime: this.props.currentData[20]
+            currencyType: this.props.currentData[8],
+            loanAmoun: this.props.currentData[9],
+            collateral: this.props.currentData[10],
+            LTV: this.props.currentData[11],
+            source: this.props.currentData[12],
+            intended: this.props.currentData[13],
+            apr: this.props.currentData[14],
+            monthlyPayment: this.props.currentData[15],
+            totalInterest: this.props.currentData[16],
+            marginCall: this.props.currentData[17],
+            escrowValue: this.props.currentData[18],
+            margin: this.props.currentData[19],
+            rate: this.props.currentData[20],
+            prime: this.props.currentData[21]
           }
         });
       this.props.handleId(uniqueId);
@@ -174,11 +175,12 @@ export default class Step3 extends React.Component {
           BORR_COUNTRY: this.props.currentData[4],
           BORR_PHONE_NO: this.props.currentData[3],
           BORR_EMAIL: this.props.currentData[2],
-          BORR_ESCROW_YN: "",
+          BORR_ESCROW_YN: this.props.currentData[18],
           BORR_SSNO: socialSecurity,
           BORR_DOB: birthDate,
-          SOURCE: this.props.currentData[11],
-          USE: this.props.currentData[12]
+          SOURCE: this.props.currentData[12],
+          USE: this.props.currentData[13],
+          BORR_TERM_AGREE_YN: this.props.currentData[7]
         },
         function(err, record) {
           if (err) {
@@ -188,22 +190,22 @@ export default class Step3 extends React.Component {
           console.log(record.getId());
         }
       );
-
+      
       base("LOAN DETAIL").create(
         {
           LOAN_APP_ID: uniqueId,
-          COLLTYPE: this.props.currentData[7],
-          PRINC_BAL: this.props.currentData[8],
-          COLL_REQ_CALC: this.props.currentData[9],
-          LTV: this.props.currentData[10],
-          APR: this.props.currentData[13],
-          PMT_MONTHLY: this.props.currentData[14],
-          TOTAL_INTEREST: this.props.currentData[15],
-          COLL_PRICE: this.props.currentData[16],
-          ESCROW_SERVICE: this.props.currentData[17],
-          MARGIN: this.props.currentData[18],
-          RATE: this.props.currentData[19],
-          PRIME: this.props.currentData[20]
+          COLLTYPE: this.props.currentData[8],
+          PRINC_BAL: this.props.currentData[9],
+          COLL_REQ_CALC: this.props.currentData[10],
+          LTV: this.props.currentData[11],
+          APR: this.props.currentData[14],
+          PMT_MONTHLY: this.props.currentData[15],
+          TOTAL_INTEREST: this.props.currentData[16],
+          COLL_PRICE: this.props.currentData[17],
+          ESCROW_SERVICE: this.props.currentData[18],
+          MARGIN: this.props.currentData[19],
+          RATE: this.props.currentData[20],
+          PRIME: this.props.currentData[21]
         },
         function(err, record) {
           if (err) {
