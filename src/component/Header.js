@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaTwitter } from 'react-icons/fa';
 import { FaLinkedin } from 'react-icons/fa';
-import { IoIosSend } from 'react-icons/io';
+/*import { IoIosSend } from 'react-icons/io';*/
 import { IoIosMail } from 'react-icons/io';
 
 const Header = (props) => (

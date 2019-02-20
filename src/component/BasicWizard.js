@@ -12,13 +12,8 @@ export default class BasicWizard extends React.Component {
         currentData: [],
         uniqueId: ''
       };
-      
-      this.next = this.next.bind(this);
-      this.prev = this.prev.bind(this);
-      this.handleForm = this.handleForm.bind(this);
-      this.handleId = this.handleId.bind(this);
     }
-    handleForm(formData) {
+    handleForm = formData => {
       let currentData = this.state.currentData;
       formData.forEach(function(element) {
         currentData.push(element);
@@ -27,13 +22,13 @@ export default class BasicWizard extends React.Component {
         currentData: currentData
       });
     }
-    handleId(uniqueId) {
+    handleId = uniqueId => {
       this.setState({
         uniqueId: uniqueId
       });
     }
 
-    next() {
+    next = () => {
       let currentStep = this.state.currentStep;
       // Make sure currentStep is set to something reasonable
       if (currentStep >= 3) {
@@ -47,7 +42,7 @@ export default class BasicWizard extends React.Component {
       });
     }
      
-    prev() {
+    prev = () => {
       let currentStep = this.state.currentStep;
       if (currentStep <= 1) {
         currentStep = 1;
