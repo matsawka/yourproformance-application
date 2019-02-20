@@ -13,17 +13,6 @@ const addtlAPRFee = 0.45;
 export default class Step2 extends React.Component {
   constructor(props) {
     super(props);
-    this.handleBitcoin = this.handleBitcoin.bind(this);
-    this.handleEther = this.handleEther.bind(this);
-    this.getRates = this.getRates.bind(this);
-    this.getPrimeRate = this.getPrimeRate.bind(this);
-    this.handleCalculate = this.handleCalculate.bind(this);
-    this.handleStep2 = this.handleStep2.bind(this);
-    this.selectorChangeC = this.selectorChangeC.bind(this);
-    this.selectorChangeI = this.selectorChangeI.bind(this);
-    this.getbitCoinValue = this.getbitCoinValue.bind(this);
-    this.clearBoxes = this.clearBoxes.bind(this);
-    this.checkEscrow = this.checkEscrow.bind(this);
     this.state = {
       currencyType: "bitcoin",
       margin: "",
@@ -32,7 +21,7 @@ export default class Step2 extends React.Component {
       APR: ""
     };
   }
-  getbitCoinValue() {
+  getbitCoinValue =() => {
     let request = new XMLHttpRequest();
     request.open(
       "GET",
@@ -51,7 +40,7 @@ export default class Step2 extends React.Component {
     };
     request.send();
   }
-  getEtherValue() {
+  getEtherValue = () => {
     let request = new XMLHttpRequest();
     request.open(
       "GET",
@@ -71,7 +60,7 @@ export default class Step2 extends React.Component {
     request.send();
   }
 
-  getPrimeRate() {
+  getPrimeRate = () => {
     let htmlData = axios.get(
       "https://www.bankrate.com/rates/interest-rates/wall-street-prime-rate.aspx"
     );
@@ -98,7 +87,7 @@ export default class Step2 extends React.Component {
     return Number(primert);
   }
 
-  getRates(loanAmount, LTV) {
+  getRates= (loanAmount, LTV) => {
     const myLoanAmount = loanAmount;
     const myLTV = LTV;
     const baseSpread = 4.5;
@@ -185,7 +174,7 @@ export default class Step2 extends React.Component {
     return { rate, APR, primeRate, margin };
   }
 
-  handleBitcoin(e) {
+  handleBitcoin = e => {
     e.preventDefault();
     this.setState({
       currencyType: "bitcoin"
@@ -206,7 +195,7 @@ export default class Step2 extends React.Component {
     document.getElementById("amount_granted").placeholder = "0.00000";
     this.clearBoxes();
   }
-  handleEther(e) {
+  handleEther = e => {
     e.preventDefault();
     this.setState({
       currencyType: "ether"
@@ -227,13 +216,13 @@ export default class Step2 extends React.Component {
     document.getElementById("amount_granted").placeholder = "0.00000";
     this.clearBoxes();
   }
-  clearBoxes() {
+  clearBoxes = () => {
     document.getElementById("apr_rate").innerHTML = "&nbsp;";
     document.getElementById("monthly_payment").innerHTML = "&nbsp;";
     document.getElementById("total_interest").innerHTML = "&nbsp;";
     document.getElementById("margin_call").innerHTML = "&nbsp;";
   }
-  checkEscrow(loanAmount) {
+  checkEscrow = loanAmount => {
     console.log("checkE");
     if (loanAmount >= 100000) {
       document.getElementById("escrowDiv").classList.add("displayBlock");
@@ -243,7 +232,7 @@ export default class Step2 extends React.Component {
       document.getElementById("escrowDiv").classList.remove("displayBlock");
     }
   }
-  selectorChangeC() {
+  selectorChangeC = () => {
     const sourceCollateral = document.getElementById("source_collateral");
     var sourceCollateralValue =
       sourceCollateral.options[sourceCollateral.selectedIndex].value;
@@ -254,7 +243,7 @@ export default class Step2 extends React.Component {
         '<b><span class="required">*Please Select an Option</span></b>';
     }
   }
-  selectorChangeI() {
+  selectorChangeI = () => {
     const intendedUse = document.getElementById("intended_use");
     var intendedUseValue = intendedUse.options[intendedUse.selectedIndex].value;
     if (intendedUseValue != "Select an option") {
@@ -264,7 +253,7 @@ export default class Step2 extends React.Component {
         '<b><span class="required">*Please Select an Option</span></b>';
     }
   }
-  handleCalculate(e) {
+  handleCalculate = e => {
     e.preventDefault();
     let loanAmount = document.getElementById("enter_loan_amount").value.trim();
     const regexp = "^d+(.d{1,2})?$";
@@ -368,7 +357,7 @@ export default class Step2 extends React.Component {
         "$" + numeral(marginCall).format("0,0.00");
     }
   }
-  handleStep2(e) {
+  handleStep2 = e => {
     e.preventDefault();
     let cryptoCurrency = document.getElementsByClassName(
       "button__crypto__selected"

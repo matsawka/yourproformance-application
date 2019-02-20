@@ -10,19 +10,17 @@ import * as emailjs from "emailjs-com";
 export default class Step3 extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
     this.state = {
       startDate: moment()
     };
   }
   
-  handleChange(date) {
+  handleChange = date => {
     this.setState({
       startDate: date
     });
   }
-  onFormSubmit(e) {
+  onFormSubmit = e => {
     e.preventDefault(e);
     //get values from form
     let socialSecurity = e.target.elements.socialSecurity.value.trim();

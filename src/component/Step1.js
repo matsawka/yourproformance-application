@@ -7,14 +7,12 @@ import { Link } from "react-router-dom";
 export default class Step1 extends React.Component {
   constructor(props) {
     super(props);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.setNewValue = this.setNewValue.bind(this);
     this.state = {
       country: "",
       us_state: ""
     };
   }
-  selectCountry(val) {
+  selectCountry = val => {
     this.setState({ country: val });
     if (val === "United States") {
       document
@@ -31,10 +29,10 @@ export default class Step1 extends React.Component {
       this.setState({ us_state: "" });
     }
   }
-  setNewValue(newValue) {
+  setNewValue = newValue => {
     this.setState({ us_state: newValue });
   }
-  onFormSubmit(e) {
+  onFormSubmit = e => {
     e.preventDefault();
 
     //get values from form
