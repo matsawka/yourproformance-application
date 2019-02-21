@@ -95,6 +95,8 @@ export default class Step3 extends React.Component {
       var momentDate = moment()
         .tz("America/New_York")
         .format("MMMM Do YYYY, h:mm:ss a z");
+      var momentDay = moment()
+        .tz("America/New_York").format('L');
       var db = firebase.firestore();
       // const database  = firebase.database();
       const uniqueId = uuid();
@@ -156,7 +158,20 @@ export default class Step3 extends React.Component {
       var Airtable = require("airtable");
 
       var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-        "app07QDgAAsXbpFax"
+      "app07QDgAAsXbpFax"
+      );
+      base("MISSION CONTROL").create(
+        {
+          LOAN_APP_ID: uniqueId,
+          APPLICATION_DATE: momentDay
+        },
+        function(err, record) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          console.log(record.getId());
+        }
       );
       base("BORROWER").create(
         {
@@ -188,7 +203,6 @@ export default class Step3 extends React.Component {
           console.log(record.getId());
         }
       );
-      
       base("LOAN DETAIL").create(
         {
           LOAN_APP_ID: uniqueId,
@@ -214,7 +228,7 @@ export default class Step3 extends React.Component {
         }
       );
 
-      emailjs
+      /*emailjs
         .send(
           "gmail",
           "template_0zcrjEzd",
@@ -228,7 +242,7 @@ export default class Step3 extends React.Component {
           function(error) {
             console.log("FAILED...", error);
           }
-        );
+        );*/
       this.props.next();
     }
   }
