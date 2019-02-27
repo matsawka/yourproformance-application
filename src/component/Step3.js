@@ -228,7 +228,7 @@ export default class Step3 extends React.Component {
         }
       );
 
-      /*emailjs
+      emailjs
         .send(
           "gmail",
           "template_0zcrjEzd",
@@ -242,7 +242,7 @@ export default class Step3 extends React.Component {
           function(error) {
             console.log("FAILED...", error);
           }
-        );*/
+        );
       this.props.next();
     }
   }
@@ -272,11 +272,11 @@ export default class Step3 extends React.Component {
 
     return (
       <div>
-        <h2 className="subheader">LAST STEP! Please confirm your identity</h2>
+        <h2 className="subheader">Application Continued</h2>
         <div className="container">
           <form onSubmit={this.onFormSubmit}>
             <div className="row">
-              <div className="col-12 col-sm-6">
+              <div className="col-12 col-sm-5">
                 <b>
                   <label>First Name:</label>
                 </b>
@@ -287,6 +287,20 @@ export default class Step3 extends React.Component {
                   name="firstName"
                   id="firstName"
                   value={this.props.currentData[0]}
+                  disabled
+                />
+              </div>
+              <div className="col-12 col-sm-1">
+                <b>
+                  <label>Initial:</label>
+                </b>
+                <br />
+                <input
+                  className="add-option__input"
+                  type="text"
+                  name="middleInitial"
+                  id="middleInitial"
+                  value={this.props.currentData[6]}
                   disabled
                 />
               </div>

@@ -18,12 +18,13 @@
     text-decoration: none;
 }
 .subheader {
-    max-width:60rem;
+    max-width:75rem;
     margin: 0 auto $m-size auto;
     padding: 0;
     text-align: center;
     color:white;
     font-size: $lm-size;
+    font-family: 'Eczar', serif;
 }
 @media (min-width: $desktop-breakpoint) {
     .header {

@@ -446,7 +446,7 @@ export default class Step2 extends React.Component {
 
     return (
       <div>
-        <h2 className="subheader">Start Your Loan Application!</h2>
+        <h2 className="subheader">Start Your Loan Application</h2>
         <div className="container">
           <div className="row">
             <div className="col-12 col-sm-6">
@@ -559,13 +559,13 @@ export default class Step2 extends React.Component {
                   <div id="monthly_payment">&nbsp;</div>
                 </div>
               </div>
-              <div className="col-12 col-sm-3">
+              <div className="col-12 col-sm-4">
                 <div className="box payments">
                   <p>Total Financing Charge</p>
                   <div id="total_interest">&nbsp;</div>
                 </div>
               </div>
-              <div className="col-12 col-sm-3">
+              <div className="col-12 col-sm-2">
                 <div className="box payments">
                   <p>APR*</p>
                   <div id="apr_rate">&nbsp;</div>

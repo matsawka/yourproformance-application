@@ -129,7 +129,7 @@ export default class Step1 extends React.Component {
               </div>
               <div className="col-12 col-sm-1">
                 <b>
-                  <label>Initial</label>
+                  <label>Initial:</label>
                 </b>
                 <br />
                 <input
