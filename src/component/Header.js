@@ -9,7 +9,7 @@ const Header = (props) => (
         <div className="container header__container">
             <div className="row">
                 <div className="col-sm-8 col-12">
-                    <a href="https://www.yourproformance.com/" target="_blank"><img src="/images/logo.png"/></a>
+                    <a href="https://www.yourproformance.com/"><img src="/images/logo.png"/></a>
                 </div>
                 <div className="header__social col-sm-4">
                     <a className="social__email" href="mailto:info@yourproformance.com?subject=Questions about YourFormance Loan"><IoIosMail/></a>
