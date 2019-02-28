@@ -7,6 +7,7 @@ import numeral from "numeral";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import cheerio from "cheerio";
+import { Tooltip } from 'reactstrap';
 
 const addtlAPRFee = 0.45;
 
@@ -18,8 +19,14 @@ export default class Step2 extends React.Component {
       margin: "",
       rate: "",
       primeRate: "",
-      APR: ""
+      APR: "",
+      tooltipOpen: false
     };
+  }
+  toggle =() => {
+    this.setState({
+      tooltipOpen: !this.state.tooltipOpen
+    });
   }
   getbitCoinValue =() => {
     let request = new XMLHttpRequest();
@@ -443,8 +450,8 @@ export default class Step2 extends React.Component {
     if (this.props.currentStep !== 2) {
       return null;
     }
-
     return (
+      
       <div>
         <h2 className="subheader">Start Your Loan Application</h2>
         <div className="container">
@@ -523,8 +530,11 @@ export default class Step2 extends React.Component {
 
               <div className="col-12 col-sm-6">
                 <p>
-                  <b>Loan to Value</b>
+                  <b id="ltvToolTip">Loan to Value</b>
                 </p>
+                <Tooltip placement="top" isOpen={this.state.tooltipOpen} target="ltvToolTip" toggle={this.toggle} className="tooltip">
+                  Loan to value is how much money do you want to borrow as a percentage of the total collateral provided value. So, for a 15% loan-to-value, a borrower would provide $100,000 in collateral for a $15,000 loan.
+                </Tooltip>
                 <select id="loan_to_value">
                   <option value=".15">15%</option>
                   <option value=".25">25%</option>
@@ -619,6 +629,11 @@ export default class Step2 extends React.Component {
                 </select>
 
                 <label id="intended_use_validation">&nbsp;</label>
+              </div>
+              <div className="col-12">
+                <p className="smalltext text-center">
+              Sources and Uses are for informational use only. Your selection will not affect the underwriting decision.
+              </p>
               </div>
             </div>
             <button className="button">Continue</button>

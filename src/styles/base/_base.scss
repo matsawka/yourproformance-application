@@ -28,3 +28,7 @@ a, a:hover {
 .smalltext {
     font-size: 75%;
 }
+.tooltip > .tooltip-inner {
+    background-color:#515151;
+    font-size: $s-size;
+    }

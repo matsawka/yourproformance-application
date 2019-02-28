@@ -45,3 +45,7 @@ content: "";
     vertical-align: bottom;
     margin-bottom:0;
 }
+.flex__label {
+    display:flex;
+    justify-content: flex-start;
+}

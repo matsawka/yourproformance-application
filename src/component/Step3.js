@@ -6,15 +6,24 @@ import "react-datepicker/dist/react-datepicker.css";
 import firebase from "../firebase/firebase";
 import uuid from "uuid";
 import * as emailjs from "emailjs-com";
+import { Link } from "react-router-dom";
 
 export default class Step3 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: moment()
+      startDate: moment(),
+      pullCredit: false
     };
   }
-  
+  creditState = event => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    this.setState({
+      pullCredit: value
+    });
+  }
   handleChange = date => {
     this.setState({
       startDate: date
@@ -90,7 +99,8 @@ export default class Step3 extends React.Component {
       zipCodeResult &&
       SocialSecuirtyResult &&
       birthDateResults &&
-      cityResult
+      cityResult &&
+      this.state.pullCredit
     ) {
       var momentDate = moment()
         .tz("America/New_York")
@@ -136,7 +146,8 @@ export default class Step3 extends React.Component {
             escrowValue: this.props.currentData[18],
             margin: this.props.currentData[19],
             rate: this.props.currentData[20],
-            prime: this.props.currentData[21]
+            prime: this.props.currentData[21],
+            pullcredt: this.state.pullCredit
           }
         });
       this.props.handleId(uniqueId);
@@ -217,7 +228,8 @@ export default class Step3 extends React.Component {
           ESCROW_SERVICE: this.props.currentData[18],
           MARGIN: this.props.currentData[19],
           RATE: this.props.currentData[20],
-          PRIME: this.props.currentData[21]
+          PRIME: this.props.currentData[21],
+          PULL_CREDIT: this.state.pullCredit
         },
         function(err, record) {
           if (err) {
@@ -228,7 +240,7 @@ export default class Step3 extends React.Component {
         }
       );
 
-      emailjs
+      /*emailjs
         .send(
           "gmail",
           "template_0zcrjEzd",
@@ -242,7 +254,7 @@ export default class Step3 extends React.Component {
           function(error) {
             console.log("FAILED...", error);
           }
-        );
+        );*/
       this.props.next();
     }
   }
@@ -430,6 +442,26 @@ export default class Step3 extends React.Component {
                   name="zipCode"
                   id="zipCode"
                 />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                <label className="flex__label">
+                  <input
+                    type="checkbox"
+                    id="background"
+                    name="background"
+                    value=""
+                    checked={this.state.pullCredit}
+                    onChange={this.creditState} 
+                  />
+                  &nbsp; <span className="smalltext">
+                  I hereby authorize, pursuant to the federal Fair Credit Reporting Act, Proformance Management Group, LLC and its designated agents and representatives to conduct a comprehensive review of my background for the purposes of determining my eligibility for a consumer loan. 
+                  &nbsp;<Link to="/fair-credit-reporting-act" target="_blank">
+                    Fair Credit Reporting Act
+                  </Link>
+                  </span> 
+                </label>
               </div>
             </div>
             <button className="button">Submit</button>
