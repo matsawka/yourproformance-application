@@ -7,10 +7,10 @@ import numeral from "numeral";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import cheerio from "cheerio";
-import { Tooltip } from 'reactstrap';
+import { Tooltip } from "reactstrap";
 
 const addtlAPRFee = 0.45;
-
+const api = process.env.API_HOST || "http://localhost:3000";
 export default class Step2 extends React.Component {
   constructor(props) {
     super(props);
@@ -23,49 +23,42 @@ export default class Step2 extends React.Component {
       tooltipOpen: false
     };
   }
-  toggle =() => {
+  toggle = () => {
     this.setState({
       tooltipOpen: !this.state.tooltipOpen
     });
-  }
-  getbitCoinValue =() => {
+  };
+  getbitCoinValue = () => {
+    console.log("process.env.API_HOST" + process.env.API_HOST);
     let request = new XMLHttpRequest();
-    request.open(
-      "GET",
-      "https://api.coinbase.com/v2/prices/BTC-USD/spot?currency=USD",
-      true
-    );
+    request.open("GET", api + "/api/getCoinPrice?coin=BTC", true);
     request.onload = function() {
       // Begin accessing JSON data here
       let data = JSON.parse(this.response);
       if (request.status >= 200 && request.status < 400) {
-        let bitCoinPrice = data.data.amount;
+        let bitCoinPrice = data.coin_price;
         document.getElementById("bitCoinHolder").innerHTML = bitCoinPrice;
       } else {
         console.log("error");
       }
     };
     request.send();
-  }
+  };
   getEtherValue = () => {
     let request = new XMLHttpRequest();
-    request.open(
-      "GET",
-      "https://api.coinbase.com/v2/prices/ETH-USD/spot?currency=USD",
-      true
-    );
+    request.open("GET", api + "/api/getCoinPrice?coin=ETH", true);
     request.onload = function() {
       // Begin accessing JSON data here
       let data = JSON.parse(this.response);
       if (request.status >= 200 && request.status < 400) {
-        let etherPrice = data.data.amount;
+        let etherPrice = data.coin_price;
         document.getElementById("etherHolder").innerHTML = etherPrice;
       } else {
         console.log("error");
       }
     };
     request.send();
-  }
+  };
 
   getPrimeRate = () => {
     let htmlData = axios.get(
@@ -92,9 +85,9 @@ export default class Step2 extends React.Component {
     ).text();
     console.log("primert3:", primert);
     return Number(primert);
-  }
+  };
 
-  getRates= (loanAmount, LTV) => {
+  getRates = (loanAmount, LTV) => {
     const myLoanAmount = loanAmount;
     const myLTV = LTV;
     const baseSpread = 4.5;
@@ -179,7 +172,7 @@ export default class Step2 extends React.Component {
     });
 
     return { rate, APR, primeRate, margin };
-  }
+  };
 
   handleBitcoin = e => {
     e.preventDefault();
@@ -201,7 +194,7 @@ export default class Step2 extends React.Component {
     document.getElementById("amount_granted").value = "";
     document.getElementById("amount_granted").placeholder = "0.00000";
     this.clearBoxes();
-  }
+  };
   handleEther = e => {
     e.preventDefault();
     this.setState({
@@ -222,13 +215,13 @@ export default class Step2 extends React.Component {
     document.getElementById("amount_granted").value = "";
     document.getElementById("amount_granted").placeholder = "0.00000";
     this.clearBoxes();
-  }
+  };
   clearBoxes = () => {
     document.getElementById("apr_rate").innerHTML = "&nbsp;";
     document.getElementById("monthly_payment").innerHTML = "&nbsp;";
     document.getElementById("total_interest").innerHTML = "&nbsp;";
     document.getElementById("margin_call").innerHTML = "&nbsp;";
-  }
+  };
   checkEscrow = loanAmount => {
     console.log("checkE");
     if (loanAmount >= 100000) {
@@ -238,7 +231,7 @@ export default class Step2 extends React.Component {
       document.getElementById("escrowDiv").classList.add("displayNone");
       document.getElementById("escrowDiv").classList.remove("displayBlock");
     }
-  }
+  };
   selectorChangeC = () => {
     const sourceCollateral = document.getElementById("source_collateral");
     var sourceCollateralValue =
@@ -249,7 +242,7 @@ export default class Step2 extends React.Component {
       document.getElementById("source_collateral_validation").innerHTML =
         '<b><span class="required">*Please Select an Option</span></b>';
     }
-  }
+  };
   selectorChangeI = () => {
     const intendedUse = document.getElementById("intended_use");
     var intendedUseValue = intendedUse.options[intendedUse.selectedIndex].value;
@@ -259,7 +252,7 @@ export default class Step2 extends React.Component {
       document.getElementById("intended_use_validation").innerHTML =
         '<b><span class="required">*Please Select an Option</span></b>';
     }
-  }
+  };
   handleCalculate = e => {
     e.preventDefault();
     let loanAmount = document.getElementById("enter_loan_amount").value.trim();
@@ -363,7 +356,7 @@ export default class Step2 extends React.Component {
       document.getElementById("margin_call").innerHTML =
         "$" + numeral(marginCall).format("0,0.00");
     }
-  }
+  };
   handleStep2 = e => {
     e.preventDefault();
     let cryptoCurrency = document.getElementsByClassName(
@@ -404,20 +397,20 @@ export default class Step2 extends React.Component {
     //const APR = document.getElementById("apr_rate").innerHTML;
     //const APR = document.getElementById("apr_rate").innerHTML;
     let monthlyPayment = document.getElementById("monthly_payment").innerHTML;
-    monthlyPayment = monthlyPayment.replace(/,/g, '');
-    monthlyPayment = parseFloat(monthlyPayment.replace(/\$/g, ''));
+    monthlyPayment = monthlyPayment.replace(/,/g, "");
+    monthlyPayment = parseFloat(monthlyPayment.replace(/\$/g, ""));
     let totalInterest = document.getElementById("total_interest").innerHTML;
-    totalInterest = totalInterest.replace(/,/g, '');
-    totalInterest = parseFloat(totalInterest.replace(/\$/g, ''));
+    totalInterest = totalInterest.replace(/,/g, "");
+    totalInterest = parseFloat(totalInterest.replace(/\$/g, ""));
     let marginCall = document.getElementById("margin_call").innerHTML;
-    marginCall = marginCall.replace(/,/g, '');
-    marginCall = parseFloat(marginCall.replace(/\$/g, ''));
-    loan_amount = loan_amount.replace(/,/g, '');
-    loan_amount = parseFloat(loan_amount.replace(/\$/g, ''));
-    const escrowValue = document.getElementById('escrowService').checked;
-    amount_granted = amount_granted.replace(/,/g, '');
-    amount_granted = parseFloat(amount_granted.replace(/\$/g, ''));
-    console.log('amount_granted step2: ' + amount_granted);
+    marginCall = marginCall.replace(/,/g, "");
+    marginCall = parseFloat(marginCall.replace(/\$/g, ""));
+    loan_amount = loan_amount.replace(/,/g, "");
+    loan_amount = parseFloat(loan_amount.replace(/\$/g, ""));
+    const escrowValue = document.getElementById("escrowService").checked;
+    amount_granted = amount_granted.replace(/,/g, "");
+    amount_granted = parseFloat(amount_granted.replace(/\$/g, ""));
+    console.log("amount_granted step2: " + amount_granted);
     LTV = parseFloat(LTV);
     if (
       amount_granted_pass &&
@@ -445,13 +438,12 @@ export default class Step2 extends React.Component {
       console.log(step2Array);
       this.props.next();
     }
-  }
+  };
   render(props) {
     if (this.props.currentStep !== 2) {
       return null;
     }
     return (
-      
       <div>
         <h2 className="subheader">Start Your Loan Application</h2>
         <div className="container">
@@ -532,8 +524,17 @@ export default class Step2 extends React.Component {
                 <p>
                   <b id="ltvToolTip">Loan to Value</b>
                 </p>
-                <Tooltip placement="top" isOpen={this.state.tooltipOpen} target="ltvToolTip" toggle={this.toggle} className="tooltip">
-                  Loan to value is how much money do you want to borrow as a percentage of the total collateral provided value. So, for a 15% loan-to-value, a borrower would provide $100,000 in collateral for a $15,000 loan.
+                <Tooltip
+                  placement="top"
+                  isOpen={this.state.tooltipOpen}
+                  target="ltvToolTip"
+                  toggle={this.toggle}
+                  className="tooltip"
+                >
+                  Loan to value is how much money do you want to borrow as a
+                  percentage of the total collateral provided value. So, for a
+                  15% loan-to-value, a borrower would provide $100,000 in
+                  collateral for a $15,000 loan.
                 </Tooltip>
                 <select id="loan_to_value">
                   <option value=".15">15%</option>
@@ -632,8 +633,9 @@ export default class Step2 extends React.Component {
               </div>
               <div className="col-12">
                 <p className="smalltext text-center">
-              Sources and Uses are for informational use only. Your selection will not affect the underwriting decision.
-              </p>
+                  Sources and Uses are for informational use only. Your
+                  selection will not affect the underwriting decision.
+                </p>
               </div>
             </div>
             <button className="button">Continue</button>
