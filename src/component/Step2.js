@@ -523,28 +523,7 @@ export default class Step2 extends React.Component {
                 </button>
               </div>
             </div>
-            <div className="row">
-              <div className="col-12 col-sm-6">
-                <button
-                  onClick={this.handleLTC}
-                  className="button button__crypto button__crypto__selected"
-                  id="button__bitcoin"
-                >
-                  <FaLTC />
-                  &nbsp;Litecoin
-                </button>
-              </div>
-              <div className="col-12 col-sm-6">
-                <button
-                  onClick={this.handleBCH}
-                  className="button button__crypto button__cyrpto__unselected"
-                  id="button__ether"
-                >
-                  <FaBCH />
-                  &nbsp;Bitcoin Cash
-                </button>
-              </div>
-            </div>
+
             <div className="row">
               <div className="col-12 col-sm-6">
                 <p>
