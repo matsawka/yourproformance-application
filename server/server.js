@@ -6,7 +6,6 @@ const app = express();
 var Airtable = require("airtable");
 const publicPath = path.join(__dirname, "..", "public");
 const port = process.env.PORT || 3000;
-const coinPrices = require("./coinPrices");
 const cors = require("cors");
 
 var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
