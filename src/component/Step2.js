@@ -3,6 +3,8 @@ import React from "react";
 import validator from "validator";
 import { FaEthereum } from "react-icons/fa";
 import { FaBitcoin } from "react-icons/fa";
+import { FaLTC } from "react-icons/fa";
+import { FaBCH } from "react-icons/fa";
 import numeral from "numeral";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -53,6 +55,38 @@ export default class Step2 extends React.Component {
       if (request.status >= 200 && request.status < 400) {
         let etherPrice = data.coin_price;
         document.getElementById("etherHolder").innerHTML = etherPrice;
+      } else {
+        console.log("error");
+      }
+    };
+    request.send();
+  };
+
+  getBCHCoinValue = () => {
+    console.log("process.env.API_HOST" + process.env.API_HOST);
+    let request = new XMLHttpRequest();
+    request.open("GET", api + "/api/getCoinPrice?coin=BTC", true);
+    request.onload = function() {
+      // Begin accessing JSON data here
+      let data = JSON.parse(this.response);
+      if (request.status >= 200 && request.status < 400) {
+        let bitCoinPrice = data.coin_price;
+        document.getElementById("ltcHolder").innerHTML = bitCoinPrice;
+      } else {
+        console.log("error");
+      }
+    };
+    request.send();
+  };
+  getLTCValue = () => {
+    let request = new XMLHttpRequest();
+    request.open("GET", api + "/api/getCoinPrice?coin=ETH", true);
+    request.onload = function() {
+      // Begin accessing JSON data here
+      let data = JSON.parse(this.response);
+      if (request.status >= 200 && request.status < 400) {
+        let etherPrice = data.coin_price;
+        document.getElementById("bchHolder").innerHTML = etherPrice;
       } else {
         console.log("error");
       }
@@ -489,7 +523,28 @@ export default class Step2 extends React.Component {
                 </button>
               </div>
             </div>
-
+            <div className="row">
+              <div className="col-12 col-sm-6">
+                <button
+                  onClick={this.handleLTC}
+                  className="button button__crypto button__crypto__selected"
+                  id="button__bitcoin"
+                >
+                  <FaLTC />
+                  &nbsp;Litecoin
+                </button>
+              </div>
+              <div className="col-12 col-sm-6">
+                <button
+                  onClick={this.handleBCH}
+                  className="button button__crypto button__cyrpto__unselected"
+                  id="button__ether"
+                >
+                  <FaBCH />
+                  &nbsp;Bitcoin Cash
+                </button>
+              </div>
+            </div>
             <div className="row">
               <div className="col-12 col-sm-6">
                 <p>
