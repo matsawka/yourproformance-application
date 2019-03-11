@@ -1,7 +1,9 @@
 var Airtable = require("airtable");
-const coinPrices = require("./coinPrices");
 const axios = require("axios");
-
+const moment = require("moment-timezone");
+var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
+  "app07QDgAAsXbpFax"
+);
 axios
   .get("https://api.bittrex.com/api/v1.1/public/getticker?market=USD-" + "BTC")
   .then(res => {
