@@ -45,10 +45,10 @@ app.get("/api/setCoinPrices", (req, response) => {
     )
     .then(res => {
       console.log("res data", res.data);
-      base("COIN PRICES").update(
-        "recdmindGnHr8QJn7",
+      base("COLLATERAL").update(
+        "recagbR8TUhKoK2D6",
         {
-          Price: res.data.result.Last,
+          USD_EQUIV: res.data.result.Last,
           Updated: moment()
         },
         function(err, record) {
@@ -70,10 +70,10 @@ app.get("/api/setCoinPrices", (req, response) => {
     )
     .then(res => {
       console.log("res data", res.data);
-      base("COIN PRICES").update(
-        "rectx5NDJPB3SPcJB",
+      base("COLLATERAL").update(
+        "recxj9ICFUm6HFJc1",
         {
-          Price: res.data.result.Last,
+          USD_EQUIV: res.data.result.Last,
           Updated: moment()
         },
         function(err, record) {
@@ -93,10 +93,10 @@ app.get("/api/setCoinPrices", (req, response) => {
     )
     .then(res => {
       console.log("res data", res.data);
-      base("COIN PRICES").update(
-        "recJBcCENEmdCSoAh",
+      base("COLLATERAL").update(
+        "recQhetyDNX5PGuT8",
         {
-          Price: res.data.result.Last,
+          USD_EQUIV: res.data.result.Last,
           Updated: moment()
         },
         function(err, record) {
@@ -116,10 +116,10 @@ app.get("/api/setCoinPrices", (req, response) => {
     )
     .then(res => {
       console.log("res data", res.data);
-      base("COIN PRICES").update(
-        "recFAT5o1IKn3Nsph",
+      base("COLLATERAL").update(
+        "recmXbo8EPOL3oTbW",
         {
-          Price: res.data.result.Last,
+          USD_EQUIV: res.data.result.Last,
           Updated: moment()
         },
         function(err, record) {
