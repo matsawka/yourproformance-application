@@ -134,5 +134,5 @@ app.get("/api/setCoinPrices", (req, response) => {
 });
 
 app.listen(port, () => {
-  console.log("Server is up!");
+  console.log("Server is up on port!", port);
 });
