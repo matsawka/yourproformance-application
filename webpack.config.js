@@ -50,7 +50,8 @@ module.exports = env => {
       new webpack.DefinePlugin({
         "process.env.AIRTABLE_API_KEY": JSON.stringify(
           process.env.AIRTABLE_API_KEY
-        )
+        ),
+        "process.env.API_HOST": JSON.stringify(process.env.API_HOST)
       })
     ],
     devtool: isProduction ? "source-map" : "inline-source-map",
