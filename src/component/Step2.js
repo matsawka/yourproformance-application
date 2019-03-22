@@ -223,10 +223,10 @@ export default class Step2 extends React.Component {
       .getElementById("button__bitcoincash")
       .classList.remove("button__crypto__selected");
     document
-      .getElementById("button__ltc")
+      .getElementById("button__litecoin")
       .classList.add("button__cyrpto__unselected");
     document
-      .getElementById("button__ltc")
+      .getElementById("button__litecoin")
       .classList.remove("button__crypto__selected");
     document
       .getElementById("button__bitcoin")
@@ -256,10 +256,10 @@ export default class Step2 extends React.Component {
       .getElementById("button__bitcoincash")
       .classList.remove("button__crypto__selected");
     document
-      .getElementById("button__ltc")
+      .getElementById("button__litecoin")
       .classList.add("button__cyrpto__unselected");
     document
-      .getElementById("button__ltc")
+      .getElementById("button__litecoin")
       .classList.remove("button__crypto__selected");  
     document
       .getElementById("button__bitcoin")
@@ -289,10 +289,10 @@ export default class Step2 extends React.Component {
       .getElementById("button__bitcoin")
       .classList.remove("button__crypto__selected");
     document
-      .getElementById("button__ltc")
+      .getElementById("button__litecoin")
       .classList.add("button__cyrpto__unselected");
     document
-      .getElementById("button__ltc")
+      .getElementById("button__litecoin")
       .classList.remove("button__crypto__selected");
     document
       .getElementById("button__bitcoincash")
@@ -328,10 +328,10 @@ export default class Step2 extends React.Component {
       .getElementById("button__bitcoincash")
       .classList.remove("button__crypto__selected");
     document
-      .getElementById("button__ltc")
+      .getElementById("button__litecoin")
       .classList.remove("button__cyrpto__unselected");
     document
-      .getElementById("button__ltc")
+      .getElementById("button__litecoin")
       .classList.add("button__crypto__selected");
     document.getElementById("amount_granted").value = "";
     document.getElementById("amount_granted").placeholder = "0.00000";
@@ -622,7 +622,7 @@ export default class Step2 extends React.Component {
                 <button
                   onClick={this.handleLitecoin}
                   className="button button__crypto button__cyrpto__unselected"
-                  id="button__ltc"
+                  id="button__litecoin"
                 >
                   Litecoin
                   <br/> Price: $<span id="ltcHolder">${this.getLTCValue()}</span> USD
