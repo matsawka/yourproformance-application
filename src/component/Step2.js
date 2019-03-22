@@ -3,8 +3,6 @@ import React from "react";
 import validator from "validator";
 import { FaEthereum } from "react-icons/fa";
 import { FaBitcoin } from "react-icons/fa";
-import { FaLTC } from "react-icons/fa";
-import { FaBCH } from "react-icons/fa";
 import numeral from "numeral";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -65,13 +63,13 @@ export default class Step2 extends React.Component {
   getBCHCoinValue = () => {
     console.log("process.env.API_HOST" + process.env.API_HOST);
     let request = new XMLHttpRequest();
-    request.open("GET", api + "/api/getCoinPrice?coin=BTC", true);
+    request.open("GET", api + "/api/getCoinPrice?coin=BCH", true);
     request.onload = function() {
       // Begin accessing JSON data here
       let data = JSON.parse(this.response);
       if (request.status >= 200 && request.status < 400) {
-        let bitCoinPrice = data.coin_price;
-        document.getElementById("ltcHolder").innerHTML = bitCoinPrice;
+        let bitCoinCashPrice = data.coin_price;
+        document.getElementById("bchHolder").innerHTML = bitCoinCashPrice;
       } else {
         console.log("error");
       }
@@ -80,13 +78,13 @@ export default class Step2 extends React.Component {
   };
   getLTCValue = () => {
     let request = new XMLHttpRequest();
-    request.open("GET", api + "/api/getCoinPrice?coin=ETH", true);
+    request.open("GET", api + "/api/getCoinPrice?coin=LTC", true);
     request.onload = function() {
       // Begin accessing JSON data here
       let data = JSON.parse(this.response);
       if (request.status >= 200 && request.status < 400) {
-        let etherPrice = data.coin_price;
-        document.getElementById("bchHolder").innerHTML = etherPrice;
+        let LTVPrice = data.coin_price;
+        document.getElementById("ltcHolder").innerHTML = LTVPrice;
       } else {
         console.log("error");
       }
@@ -207,7 +205,6 @@ export default class Step2 extends React.Component {
 
     return { rate, APR, primeRate, margin };
   };
-
   handleBitcoin = e => {
     e.preventDefault();
     this.setState({
@@ -218,6 +215,18 @@ export default class Step2 extends React.Component {
       .classList.add("button__cyrpto__unselected");
     document
       .getElementById("button__ether")
+      .classList.remove("button__crypto__selected");
+    document
+      .getElementById("button__bitcoincash")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__bitcoincash")
+      .classList.remove("button__crypto__selected");
+    document
+      .getElementById("button__ltc")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__ltc")
       .classList.remove("button__crypto__selected");
     document
       .getElementById("button__bitcoin")
@@ -240,12 +249,90 @@ export default class Step2 extends React.Component {
     document
       .getElementById("button__ether")
       .classList.add("button__crypto__selected");
+      document
+      .getElementById("button__bitcoincash")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__bitcoincash")
+      .classList.remove("button__crypto__selected");
+    document
+      .getElementById("button__ltc")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__ltc")
+      .classList.remove("button__crypto__selected");  
     document
       .getElementById("button__bitcoin")
       .classList.add("button__cyrpto__unselected");
     document
       .getElementById("button__bitcoin")
       .classList.remove("button__crypto__selected");
+    document.getElementById("amount_granted").value = "";
+    document.getElementById("amount_granted").placeholder = "0.00000";
+    this.clearBoxes();
+  };
+  handleBitcoinCash = e => {
+    e.preventDefault();
+    this.setState({
+      currencyType: "bitcoincash"
+    });
+    document
+      .getElementById("button__ether")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__ether")
+      .classList.remove("button__crypto__selected");
+    document
+      .getElementById("button__bitcoin")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__bitcoin")
+      .classList.remove("button__crypto__selected");
+    document
+      .getElementById("button__ltc")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__ltc")
+      .classList.remove("button__crypto__selected");
+    document
+      .getElementById("button__bitcoincash")
+      .classList.remove("button__cyrpto__unselected");
+    document
+      .getElementById("button__bitcoincash")
+      .classList.add("button__crypto__selected");
+    document.getElementById("amount_granted").value = "";
+    document.getElementById("amount_granted").placeholder = "0.00000";
+    this.clearBoxes();
+  };
+  handleLitecoin = e => {
+    e.preventDefault();
+    this.setState({
+      currencyType: "litecoin"
+    });
+    document
+      .getElementById("button__ether")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__ether")
+      .classList.remove("button__crypto__selected");
+    document
+      .getElementById("button__bitcoin")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__bitcoin")
+      .classList.remove("button__crypto__selected");
+    document
+      .getElementById("button__bitcoincash")
+      .classList.add("button__cyrpto__unselected");
+    document
+      .getElementById("button__bitcoincash")
+      .classList.remove("button__crypto__selected");
+    document
+      .getElementById("button__ltc")
+      .classList.remove("button__cyrpto__unselected");
+    document
+      .getElementById("button__ltc")
+      .classList.add("button__crypto__selected");
     document.getElementById("amount_granted").value = "";
     document.getElementById("amount_granted").placeholder = "0.00000";
     this.clearBoxes();
@@ -304,6 +391,10 @@ export default class Step2 extends React.Component {
     etherPrice = parseFloat(etherPrice.replace(/,/g, ""));
     let bitCoinPrice = document.getElementById("bitCoinHolder").innerHTML;
     bitCoinPrice = parseFloat(bitCoinPrice.replace(/,/g, ""));
+    let bitCoinCashPrice = document.getElementById("bchHolder").innerHTML;
+    bitCoinCashPrice = parseFloat(bitCoinCashPrice.replace(/,/g, ""));
+    let litecoinPrice = document.getElementById("ltcHolder").innerHTML;
+    litecoinPrice = parseFloat(litecoinPrice.replace(/,/g, ""));
     // get escrow checkbox:
     this.checkEscrow(loanAmount);
     if (!validator.isDecimal(loanAmount)) {
@@ -338,6 +429,12 @@ export default class Step2 extends React.Component {
       } else if (currencyType == "ether") {
         var amountGranted = collateralDollars / etherPrice;
         var marginCallCurrency = etherPrice;
+      } else if (currencyType == "bitcoincash") {
+        var amountGranted = collateralDollars / bitCoinCashPrice;
+        var marginCallCurrency = bitCoinCashPrice;
+      } else if (currencyType == "litecoin") {
+        var amountGranted = collateralDollars / litecoinPrice;
+        var marginCallCurrency = litecoinPrice;
       } else {
         console.log("error in calculation");
       }
@@ -469,7 +566,6 @@ export default class Step2 extends React.Component {
         this.state.primeRate
       ];
       this.props.handleForm(step2Array);
-      console.log(step2Array);
       this.props.next();
     }
   };
@@ -481,20 +577,6 @@ export default class Step2 extends React.Component {
       <div>
         <h2 className="subheader">Start Your Loan Application</h2>
         <div className="container">
-          <div className="row">
-            <div className="col-12 col-sm-6">
-              <div className="box">
-                <b>Bitcoin Price:</b> $
-                <span id="bitCoinHolder">{this.getbitCoinValue()}</span> USD
-              </div>
-            </div>
-            <div className="col-12 col-sm-6">
-              <div className="box">
-                <b>Ethereum Price:</b> $
-                <span id="etherHolder">{this.getEtherValue()}</span> USD
-              </div>
-            </div>
-          </div>
           <form onSubmit={this.handleStep2}>
             <div className="row">
               <div className="add-option__div col-12 text-center">
@@ -510,6 +592,7 @@ export default class Step2 extends React.Component {
                 >
                   <FaBitcoin />
                   &nbsp;Bitcoin
+                  <br/> Price: $<span id="bitCoinHolder">{this.getbitCoinValue()}</span> USD
                 </button>
               </div>
               <div className="col-12 col-sm-6">
@@ -520,10 +603,32 @@ export default class Step2 extends React.Component {
                 >
                   <FaEthereum />
                   &nbsp;Ethereum
+                  <br/> Price: $<span id="etherHolder">${this.getEtherValue()}</span> USD
                 </button>
               </div>
             </div>
-
+            <div className="row">
+              <div className="col-12 col-sm-6">
+                <button
+                  onClick={this.handleBitcoinCash}
+                  className="button button__crypto button__cyrpto__unselected"
+                  id="button__bitcoincash"
+                >
+                  Bitcoin Cash
+                  <br/> Price: $<span id="bchHolder">${this.getBCHCoinValue()}</span> USD
+                </button>
+              </div>
+              <div className="col-12 col-sm-6">
+                <button
+                  onClick={this.handleLitecoin}
+                  className="button button__crypto button__cyrpto__unselected"
+                  id="button__ltc"
+                >
+                  Litecoin
+                  <br/> Price: $<span id="ltcHolder">${this.getLTCValue()}</span> USD
+                </button>
+              </div>
+            </div>
             <div className="row">
               <div className="col-12 col-sm-6">
                 <p>

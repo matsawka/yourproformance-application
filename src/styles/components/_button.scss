@@ -23,18 +23,27 @@
     padding: 0;
 }
 .button__crypto {
+    color: $midnight2;
     width:100%;
-    @include border-radius(20px);
-    display:flex;
+    @include border-radius(5px);
     justify-content: center;
-    border: .1rem solid darken($dark-silver, 10%);
+    /*border: .1rem solid darken($dark-silver, 10%);*/
+    background-color: darken($silver, 0%);
+    border: darken($silver, 15%) 1px solid;
+    &:hover {
+        background: darken($silver, 10%);
+        border: darken($silver, 25%) 1px solid;
+        color: $midnight2;
+    }
 }
 .button__cyrpto__unselected {
-    background-color:white;
+    background: white;
     color: $midnight2;
-    border: .1rem solid darken($dark-silver, 10%);
+    border: .1rem solid darken($silver, 10%);
 }
-
+svg {
+    vertical-align: text-top;
+}
 @media (min-width: $desktop-breakpoint) {
     .big-button {
         margin-bottom: $xl-size;
