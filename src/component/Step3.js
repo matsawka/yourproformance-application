@@ -18,17 +18,17 @@ export default class Step3 extends React.Component {
   }
   creditState = event => {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
 
     this.setState({
       pullCredit: value
     });
-  }
+  };
   handleChange = date => {
     this.setState({
       startDate: date
     });
-  }
+  };
   onFormSubmit = e => {
     e.preventDefault(e);
     //get values from form
@@ -106,7 +106,8 @@ export default class Step3 extends React.Component {
         .tz("America/New_York")
         .format("MMMM Do YYYY, h:mm:ss a z");
       var momentDay = moment()
-        .tz("America/New_York").format('L');
+        .tz("America/New_York")
+        .format("L");
       var db = firebase.firestore();
       // const database  = firebase.database();
       const uniqueId = uuid();
@@ -169,7 +170,7 @@ export default class Step3 extends React.Component {
       var Airtable = require("airtable");
 
       var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-      "app07QDgAAsXbpFax"
+        "app07QDgAAsXbpFax"
       );
       base("MISSION CONTROL").create(
         {
@@ -257,7 +258,7 @@ export default class Step3 extends React.Component {
         );
       this.props.next();
     }
-  }
+  };
   render(props) {
     if (this.props.currentStep !== 3) {
       return null;
@@ -383,9 +384,7 @@ export default class Step3 extends React.Component {
               </div>
               <div className="col-12 col-sm-6">
                 <b>
-                  <label>
-                    Street Address #2
-                  </label>
+                  <label>Street Address #2</label>
                 </b>
                 <br />
                 <input
@@ -399,21 +398,21 @@ export default class Step3 extends React.Component {
 
             <div className="row">
               <div className="col-12 col-sm-6">
-                  <b>
-                    <label id="city_validation">
-                      <span className="required">*</span>City:
-                    </label>
-                  </b>
-                  <br />
-                  <input
-                    className="add-option__input"
-                    type="text"
-                    name="city"
-                    id="city"
-                  />
-                </div>
+                <b>
+                  <label id="city_validation">
+                    <span className="required">*</span>City:
+                  </label>
+                </b>
+                <br />
+                <input
+                  className="add-option__input"
+                  type="text"
+                  name="city"
+                  id="city"
+                />
+              </div>
               {us_state_render}
-            </div>  
+            </div>
             <div className="row">
               <div className="col-12 col-sm-6">
                 <b>
@@ -453,14 +452,19 @@ export default class Step3 extends React.Component {
                     name="background"
                     value=""
                     checked={this.state.pullCredit}
-                    onChange={this.creditState} 
+                    onChange={this.creditState}
                   />
-                  &nbsp; <span className="smalltext">
-                  I hereby authorize, pursuant to the federal Fair Credit Reporting Act, Proformance Management Group, LLC and its designated agents and representatives to conduct a comprehensive review of my background for the purposes of determining my eligibility for a consumer loan. 
-                  &nbsp;<Link to="/fair-credit-reporting-act" target="_blank">
-                    Fair Credit Reporting Act
-                  </Link>
-                  </span> 
+                  &nbsp;{" "}
+                  <span className="smalltext">
+                    I hereby authorize, pursuant to the federal Fair Credit
+                    Reporting Act, Proformance Management Group, LLC and its
+                    designated agents and representatives to conduct a
+                    comprehensive review of my background for the purposes of
+                    determining my eligibility for a consumer loan. &nbsp;
+                    <Link to="/fair-credit-reporting-act" target="_blank">
+                      Fair Credit Reporting Act
+                    </Link>
+                  </span>
                 </label>
               </div>
             </div>
