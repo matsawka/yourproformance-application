@@ -457,7 +457,7 @@ export default class Step3 extends React.Component {
                   &nbsp;{" "}
                   <span className="smalltext">
                     I hereby authorize, pursuant to the federal Fair Credit
-                    Reporting Act, Proformance Management Group, LLC and its
+                    Reporting Act, Residual Token, Inc. d/b/a ProFormance Loans and its
                     designated agents and representatives to conduct a
                     comprehensive review of my background for the purposes of
                     determining my eligibility for a consumer loan. &nbsp;
