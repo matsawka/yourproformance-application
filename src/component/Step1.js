@@ -216,7 +216,7 @@ export default class Step1 extends React.Component {
                   />
                   &nbsp; I certify I am 18 years of age or older, and I agree to
                   the{" "}
-                  <Link to="/terms-and-conditions" target="_blank">
+                  <Link to="https://www.yourproformance.com/terms-and-conditions" target="_blank">
                     Terms &amp; Conditions
                   </Link>
                 </label>
