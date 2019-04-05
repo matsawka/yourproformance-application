@@ -782,7 +782,7 @@ export default class Step2 extends React.Component {
           <p className="smalltext">
             *All loans are variable rate at Prime + Spread. APR shown reflects
             Prime at 5.25%. See{" "}
-            <Link to="/terms-and-conditions" target="_blank">
+            <Link to="https://www.yourproformance.com/terms-and-conditions" target="_blank">
               Terms &amp; Conditions
             </Link>{" "}
             for further details. This is a variable interest rate loan and the

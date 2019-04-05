@@ -461,7 +461,7 @@ export default class Step3 extends React.Component {
                     designated agents and representatives to conduct a
                     comprehensive review of my background for the purposes of
                     determining my eligibility for a consumer loan. &nbsp;
-                    <Link to="/fair-credit-reporting-act" target="_blank">
+                    <Link to="https://www.yourproformance.com/fair-credit-and-reporting-act" target="_blank">
                       Fair Credit Reporting Act
                     </Link>
                   </span>
